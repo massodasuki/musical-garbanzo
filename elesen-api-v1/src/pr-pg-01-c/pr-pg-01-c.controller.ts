@@ -11,6 +11,7 @@ import { ApiTags } from '@nestjs/swagger';
 export class PrPg01CController {
   constructor(private readonly prPg01CService: PrPg01CService) {}
 
+  @UseGuards(AuthGuard('jwt'))
   @Post()
   create(@Body() createPrPg01CDto: CreateVesselInspectionDto) {
     return this.prPg01CService.create(createPrPg01CDto);
@@ -22,16 +23,19 @@ export class PrPg01CController {
     return this.prPg01CService.findAll(paginationQuery);
   }
 
+  @UseGuards(AuthGuard('jwt'))
   @Get(':id')
   findOne(@Param('noTetapVesel') noTetapVesel: string) {
     return this.prPg01CService.findOne(noTetapVesel);
   }
 
+  @UseGuards(AuthGuard('jwt'))
   @Patch(':noTetapVesel')
   update(@Param('noTetapVesel') noTetapVesel: string, @Body() updatePrPg01CDto: UpdateVesselInspectionDto) {
     return this.prPg01CService.update(noTetapVesel, updatePrPg01CDto);
   }
 
+  @UseGuards(AuthGuard('jwt'))
   @Delete(':noTetapVesel')
   remove(@Param('noTetapVesel') noTetapVesel: string) {
     return this.prPg01CService.softDelete(noTetapVesel);
