@@ -22,7 +22,7 @@ export class UsersController {
   }
 
   // GET /users/:id - Get user by ID
-  @Get(':id')
+  @Get(':noTetapVesel')
   async findById(@Param('id') id: number) {
     return this.usersService.findById(Number(id));
   }

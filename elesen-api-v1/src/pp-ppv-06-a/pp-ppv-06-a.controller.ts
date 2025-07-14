@@ -24,7 +24,7 @@ export class PpPpv06AController {
   }
 
   @UseGuards(AuthGuard('jwt'))
-  @Get(':id')
+  @Get(':noTetapVesel')
   findOne(@Param('noTetapVesel') noTetapVesel: string) {
     return this.ppPpv06AService.findOne(noTetapVesel);
   }

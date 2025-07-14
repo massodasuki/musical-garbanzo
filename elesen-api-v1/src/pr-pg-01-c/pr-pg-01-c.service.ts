@@ -19,7 +19,7 @@ constructor(
       createVesselInspectionDto
       const newVesselInspection = this.vesselRepository.create({
         ...createVesselInspectionDto,
-        jenisBorang : 'pr-pg-01'});
+        jenisBorang : 'pr-pg-01-c'});
       return this.vesselRepository.save(newVesselInspection);
     }  
 

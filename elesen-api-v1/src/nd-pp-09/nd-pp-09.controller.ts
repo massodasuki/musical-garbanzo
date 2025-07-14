@@ -24,7 +24,7 @@ export class NdPp09Controller {
   }
 
   @UseGuards(AuthGuard('jwt'))
-  @Get(':id')
+  @Get(':noTetapVesel')
   findOne(@Param('noTetapVesel') noTetapVesel: string) {
     return this.ndPp09Service.findOne(noTetapVesel);
   }
