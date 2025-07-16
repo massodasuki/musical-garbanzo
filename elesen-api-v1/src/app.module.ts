@@ -3,6 +3,8 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
 
 // Entities
 import { VesselInspection } from './shared/entities/vessel-inspection.entity';
@@ -92,6 +94,7 @@ import { UsersModule } from './users/users.module';
 import { JwtModule } from '@nestjs/jwt';
 import { User } from './users/entities/user.entity';
 import { SearchModule } from './search/search.module';
+import { ImageModule } from './image/image.module';
 
 @Module({
   imports: [
@@ -164,6 +167,10 @@ import { SearchModule } from './search/search.module';
   JwtModule,
   LpiFormModule,
 
+  ServeStaticModule.forRoot({
+      rootPath: join(__dirname, '..', 'uploads'),
+      serveRoot: '/uploads',
+    }),
   ConfigModule.forRoot({ isGlobal: true }),
   TypeOrmModule.forRoot({
       type: process.env.DB_TYPE as any,
@@ -189,10 +196,12 @@ import { SearchModule } from './search/search.module';
                   KeadaanVesel, 
                   SearchModule,
                 ]}),
-  SearchModule
+  SearchModule,
+  ImageModule
               ],
   controllers: [AppController],
   providers: [AppService, AuthService],
+  
 })
 
 export class AppModule {}
