@@ -2,22 +2,24 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { ConfigModule } from '@nestjs/config';
 
 // Entities
-import { VesselInspection } from './shared/entitites/vessel-inspection.entity';
-import { EmpunyaVesel } from './shared/entitites/embedded/empunya-vesel.entity';
-import { Nakhoda } from './shared/entitites/embedded/nakhoda.entity';
-import { PenandaanVesel } from './shared/entitites/embedded/penandaan-vesel.entity';
-import { PukatTunda } from './shared/entitites/embedded/pukat-tunda.entity';
-import { ButiranVesel } from './shared/entitites/embedded/butiran-vesel.entity';
-import { ButiranEnjin } from './shared/entitites/embedded/butiran-enjin.entity';
-import { AlatKeselamatan } from './shared/entitites/embedded/alat-keselamatan.entity';
-import { PeralatanMenangkap } from './shared/entitites/embedded/peralatan-menangkap.entity';
-import { PeralatanTambahanUtama } from './shared/entitites/embedded/peralatan-tambahan-utama.entity';
-import { PeralatanTambahanTambahan } from './shared/entitites/embedded/peralatan-tambahan-tambahan.entity';
-import { KeadaanVesel } from './shared/entitites/embedded/keadaan-vesel.entity';
+import { VesselInspection } from './shared/entities/vessel-inspection.entity';
+import { EmpunyaVesel } from './shared/entities/embedded/empunya-vesel.entity';
+import { Nakhoda } from './shared/entities/embedded/nakhoda.entity';
+import { PenandaanVesel } from './shared/entities/embedded/penandaan-vesel.entity';
+import { PukatTunda } from './shared/entities/embedded/pukat-tunda.entity';
+import { ButiranVesel } from './shared/entities/embedded/butiran-vesel.entity';
+import { ButiranEnjin } from './shared/entities/embedded/butiran-enjin.entity';
+import { AlatKeselamatan } from './shared/entities/embedded/alat-keselamatan.entity';
+import { PeralatanMenangkap } from './shared/entities/embedded/peralatan-menangkap.entity';
+import { PeralatanTambahanUtama } from './shared/entities/embedded/peralatan-tambahan-utama.entity';
+import { PeralatanTambahanTambahan } from './shared/entities/embedded/peralatan-tambahan-tambahan.entity';
+import { KeadaanVesel } from './shared/entities/embedded/keadaan-vesel.entity';
 
 // module import
+import { LpiFormModule } from './lpi-form/lpi-form.module';
 import { PrPg01CModule } from './pr-pg-01-c/pr-pg-01-c.module';
 import { PpKpv03BModule } from './pp-kpv-03-b/pp-kpv-03-b.module';
 import { PpKpv04BModule } from './pp-kpv-04-b/pp-kpv-04-b.module';
@@ -65,7 +67,7 @@ import { PpGe01CModule } from './pp-ge-01-c/pp-ge-01-c.module';
 import { PpGe01DModule } from './pp-ge-01-d/pp-ge-01-d.module';
 import { PpTpu01AModule } from './pp-tpu-01-a/pp-tpu-01-a.module';
 import { PpTpu01BModule } from './pp-tpu-01-b/pp-tpu-01-b.module';
-import { PpTz01AModule } from './pp-tz-01-a/pp-tz-01-a.module';
+import { PpTz01Module } from './pp-tz-01/pp-tz-01.module';
 import { PpLvp02Module } from './pp-lvp-02/pp-lvp-02.module';
 import { PpLvp03Module } from './pp-lvp-03/pp-lvp-03.module';
 import { PpLvp05Module } from './pp-lvp-05/pp-lvp-05.module';
@@ -140,7 +142,7 @@ import { SearchModule } from './search/search.module';
   PpGe01DModule,
   PpTpu01AModule,
   PpTpu01BModule,
-  PpTz01AModule,
+  PpTz01Module,
   PpLvp02Module,
   PpLvp03Module,
   PpLvp05Module,
@@ -160,17 +162,20 @@ import { SearchModule } from './search/search.module';
   AuthModule, 
   UsersModule, 
   JwtModule,
+  LpiFormModule,
+
+  ConfigModule.forRoot({ isGlobal: true }),
   TypeOrmModule.forRoot({
-      type: 'mysql',
-      host: 'localhost',
-      port: 3306,
-      username: 'appLesen',           // ⚠️ your MySQL username
-      password: 'lesen2024',       // ⚠️ your MySQL password
-      database: 'elesen2024',         // ⚠️ your database name
+      type: process.env.DB_TYPE as any,
+      host: process.env.DB_HOST,
+      port: parseInt(process.env.DB_PORT!, 10),
+      username: process.env.DB_USERNAME,
+      password: process.env.DB_PASSWORD,
+      database: process.env.DB_DATABASE,       // ⚠️ your database name
       synchronize: true,          // ✅ auto create tables (turn off in prod)
       // logging: true,
       entities: [ User,
-                  VesselInspection, 
+                  VesselInspection,
                   EmpunyaVesel, 
                   Nakhoda, 
                   PenandaanVesel, 
@@ -182,7 +187,7 @@ import { SearchModule } from './search/search.module';
                   PeralatanTambahanUtama, 
                   PeralatanTambahanTambahan, 
                   KeadaanVesel, 
-                  SearchModule
+                  SearchModule,
                 ]}),
   SearchModule
               ],

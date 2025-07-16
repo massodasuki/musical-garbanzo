@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { NdPp02Service } from './nd-pp-02.service';
 import { NdPp02Controller } from './nd-pp-02.controller';
-import { VesselInspection } from '../shared/entitites/vessel-inspection.entity';
+import { VesselInspection } from '../shared/entities/vessel-inspection.entity';
 
 @Module({
   imports: [

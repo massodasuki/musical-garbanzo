@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { PpKpv04BService } from './pp-kpv-04-b.service';
 import { PpKpv04BController } from './pp-kpv-04-b.controller';
-import { VesselInspection } from '../shared/entitites/vessel-inspection.entity';
+import { VesselInspection } from '../shared/entities/vessel-inspection.entity';
 
 @Module({
   imports: [

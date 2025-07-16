@@ -1,15 +1,15 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { PpTz01AService } from './pp-tz-01-a.service';
+import { LpiFormService } from './lpi-form.service';
 
-describe('PpTz01AService', () => {
-  let service: PpTz01AService;
+describe('PrPg01CService', () => {
+  let service: LpiFormService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [PpTz01AService],
+      providers: [LpiFormService],
     }).compile();
 
-    service = module.get<PpTz01AService>(PpTz01AService);
+    service = module.get<LpiFormService>(LpiFormService);
   });
 
   it('should be defined', () => {

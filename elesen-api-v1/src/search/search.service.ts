@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Repository, ILike, FindOptionsWhere, DataSource } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
-import { VesselInspection } from '../shared/entitites/vessel-inspection.entity';
+import { VesselInspection } from '../shared/entities/vessel-inspection.entity';
 import { PaginatedResult } from './dto/pagination-result.dto';
 
 

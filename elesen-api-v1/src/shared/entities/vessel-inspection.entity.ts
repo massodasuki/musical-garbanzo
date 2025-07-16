@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToOne, OneToMany, DeleteDateColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToOne, OneToMany, DeleteDateColumn, Unique } from 'typeorm';
 import { EmpunyaVesel } from './embedded/empunya-vesel.entity';
 import { Nakhoda } from './embedded/nakhoda.entity';
 import { PenandaanVesel } from './embedded/penandaan-vesel.entity';
@@ -10,16 +10,17 @@ import { PeralatanMenangkap } from './embedded/peralatan-menangkap.entity';
 import { PeralatanTambahanUtama } from './embedded/peralatan-tambahan-utama.entity';
 import { PeralatanTambahanTambahan } from './embedded/peralatan-tambahan-tambahan.entity';
 import { KeadaanVesel } from './embedded/keadaan-vesel.entity';
+import { JenisBorang } from '../../common/enums/jenis-borang.enum';
 
 @Entity({name : 'pemeriksaan_vesel'})
 export class VesselInspection {
   @PrimaryGeneratedColumn('increment', { type: 'bigint', unsigned: true })
   id: number;
 
-  @Column({ name: 'jenis_borang' })
+  @Column({ name: 'jenis_borang', type: 'enum', enum: JenisBorang })
   jenisBorang: string;
 
-  @Column({ name: 'no_tetap_vesel' })
+  @Column({ name: 'no_tetap_vesel', unique: true })
   noTetapVesel: string;
 
   @Column()

@@ -1,7 +1,7 @@
-import { Injectable, NotFoundException} from '@nestjs/common';
+import { Injectable, NotFoundException, ConflictException} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { VesselInspection } from '../shared/entitites/vessel-inspection.entity';
+import { VesselInspection } from '../shared/entities/vessel-inspection.entity';
 import { CreateVesselInspectionDto } from '../shared/dto/create-vessel-inspection.dto';
 import { UpdateVesselInspectionDto } from '../shared/dto/update-vessel-inspection.dto';
 import { PaginationQueryDto } from '../shared/dto/pagination-query.dto';
@@ -9,17 +9,23 @@ import { PaginationQueryDto } from '../shared/dto/pagination-query.dto';
 
 
 @Injectable()
-export class PpTz01AService {
+export class PpTz01Service {
 constructor(
       @InjectRepository(VesselInspection)
       private vesselRepository: Repository<VesselInspection>,
     ) {}
 
     async create(createVesselInspectionDto: CreateVesselInspectionDto): Promise<VesselInspection> {
-      createVesselInspectionDto
+      const existing = await this.vesselRepository.findOne({
+        where: { noTetapVesel: createVesselInspectionDto.noTetapVesel },
+      });
+
+      if (existing) {
+        throw new ConflictException('noTetapVesel already exists');
+      }
       const newVesselInspection = this.vesselRepository.create({
         ...createVesselInspectionDto,
-        jenisBorang : 'pp-tz-01-a'});
+        jenisBorang : 'pp-tz-01'});
       return this.vesselRepository.save(newVesselInspection);
     }  
 
