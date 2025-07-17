@@ -44,6 +44,8 @@ WORKDIR /app
 # Copy package files
 COPY package*.json ./
 
+RUN npm install -g @nestjs/cli
+
 # Install dependencies
 RUN npm install
 
@@ -54,7 +56,7 @@ COPY . .
 RUN npm run build
 
 # Stage 2: Production image
-FROM node:18-alpine
+FROM node:20-alpine
 
 # Set working directory
 WORKDIR /app
