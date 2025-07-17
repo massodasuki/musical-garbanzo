@@ -95,9 +95,26 @@ import { JwtModule } from '@nestjs/jwt';
 import { User } from './users/entities/user.entity';
 import { SearchModule } from './search/search.module';
 import { ImageModule } from './image/image.module';
+import { DeviceRegistrationModule } from './device-registration/device-registration.module';
+import { Search } from './search/entities/search.entity';
+import { DeviceRegistration } from './device-registration/entities/device-registration.entity';
+import { PushNotificationModule } from './push-notification/push-notification.module';
 
 @Module({
   imports: [
+  AuthModule, 
+  UsersModule, 
+  JwtModule,
+  LpiFormModule,
+  DeviceRegistrationModule,
+  SearchModule,
+  ImageModule,
+
+
+
+
+
+
   PrPg01CModule,
   PpKpv03BModule,
   PpKpv04BModule,
@@ -162,10 +179,7 @@ import { ImageModule } from './image/image.module';
   NdPp07Module,
   NdPp08Module,
   NdPp09Module,
-  AuthModule, 
-  UsersModule, 
-  JwtModule,
-  LpiFormModule,
+  
 
   ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'uploads'),
@@ -193,11 +207,11 @@ import { ImageModule } from './image/image.module';
                   PeralatanMenangkap, 
                   PeralatanTambahanUtama, 
                   PeralatanTambahanTambahan, 
-                  KeadaanVesel, 
-                  SearchModule,
+                  KeadaanVesel,
+                  Search,
+                  DeviceRegistration
                 ]}),
-  SearchModule,
-  ImageModule
+  PushNotificationModule,
               ],
   controllers: [AppController],
   providers: [AppService, AuthService],
