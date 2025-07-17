@@ -179,7 +179,7 @@ import { ImageModule } from './image/image.module';
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_DATABASE,       // ⚠️ your database name
-      synchronize: true,          // ✅ auto create tables (turn off in prod)
+      // synchronize: true,          // ✅ auto create tables (turn off in prod)
       // logging: true,
       entities: [ User,
                   VesselInspection,

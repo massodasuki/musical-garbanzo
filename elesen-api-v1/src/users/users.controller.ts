@@ -3,6 +3,7 @@ import { Controller, Get, Post, Param, Body, Patch, NotFoundException } from '@n
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { UUID } from 'crypto';
 
 @Controller('/api/v1/applications/users')
 export class UsersController {
@@ -22,9 +23,9 @@ export class UsersController {
   }
 
   // GET /users/:id - Get user by ID
-  @Get(':noTetapVesel')
-  async findById(@Param('id') id: number) {
-    return this.usersService.findById(Number(id));
+  @Get('/:id')
+  async findById(@Param('id') id: UUID) {
+    return this.usersService.findById(id);
   }
 
   // GET /users/username/:username - Get user by username

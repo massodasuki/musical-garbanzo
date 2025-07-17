@@ -5,6 +5,7 @@ import { Repository } from 'typeorm';
 import { User } from './entities/user.entity';
 import { UpdateUserDto } from './dto/update-user.dto';
 import * as bcrypt from 'bcryptjs';
+import { UUID } from 'crypto';
 
 @Injectable()
 export class UsersService {
@@ -18,14 +19,14 @@ export class UsersService {
     return this.userRepo.findOne({ where: { username } });
   }
 
-  async findById(id: number): Promise<User> {
+  async findById(id: UUID): Promise<User> {
     const user = await this.userRepo.findOne({ where: { id } });
     if (!user) throw new NotFoundException('User not found');
     return user;
   }
 
   async createUser(username: string, password: string): Promise<User> {
-    const hashedPassword = await bcrypt.hash(password, 1);
+    const hashedPassword = await bcrypt.hash(password, 10);
     const user = this.userRepo.create({ username, password: hashedPassword });
     return this.userRepo.save(user);
   }

@@ -41,6 +41,16 @@ export class AuthService {
     return { accessToken, refreshToken };
   }
 
+    async loginWithProfile(user: any, res: any) {
+    const tokens = this.getTokens(user.id, user.username);
+    res.cookie('refresh_token', tokens.refreshToken, {
+      httpOnly: true,
+      secure: true,
+      sameSite: 'strict',
+    });
+    return res.json({ accessToken: tokens.accessToken, profile : user });
+  }
+
   async login(user: any, res: any) {
     const tokens = this.getTokens(user.id, user.username);
     res.cookie('refresh_token', tokens.refreshToken, {
