@@ -35,39 +35,60 @@
 # CMD ["node", "dist/main"]
 
 
-# Stage 1: Build
-FROM node:20-alpine AS builder
+# # Stage 1: Build
+# FROM node:20-alpine AS builder
 
-# Set working directory
-WORKDIR /app
+# # Set working directory
+# WORKDIR /app
 
-# Copy package files
+# # Copy package files
+# COPY package*.json ./
+
+# RUN npm install -g @nestjs/cli
+
+# # Install dependencies
+# RUN npm install
+
+# # Copy the full project
+# COPY . .
+
+# # Build the NestJS project
+# RUN npm run build
+
+# # Stage 2: Production image
+# FROM node:20-alpine
+
+# # Set working directory
+# WORKDIR /app
+
+# # Copy only necessary files from build stage
+# COPY --from=builder /app/package*.json ./
+# COPY --from=builder /app/node_modules ./node_modules
+# COPY --from=builder /app/dist ./dist
+
+# # Expose the port the app runs on
+# EXPOSE 3000
+
+# # Start the application
+# CMD ["node", "dist/main"]
+
+# Base image
+FROM node:18
+
+# Create app directory
+WORKDIR /usr/src/app
+
+# A wildcard is used to ensure both package.json AND package-lock.json are copied
 COPY package*.json ./
 
-RUN npm install -g @nestjs/cli
-
-# Install dependencies
+# Install app dependencies
 RUN npm install
 
-# Copy the full project
+# Bundle app source
 COPY . .
 
-# Build the NestJS project
+# Creates a "dist" folder with the production build
 RUN npm run build
 
-# Stage 2: Production image
-FROM node:20-alpine
-
-# Set working directory
-WORKDIR /app
-
-# Copy only necessary files from build stage
-COPY --from=builder /app/package*.json ./
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/dist ./dist
-
-# Expose the port the app runs on
-EXPOSE 3000
-
-# Start the application
-CMD ["node", "dist/main"]
+# Start the server using the production build
+CMD [ "node", "dist/main.js" ]
