@@ -2,7 +2,9 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { DeviceRegistrationService } from './device-registration.service';
 import { CreateDeviceRegistrationDto } from './dto/create-device-registration.dto';
 import { UpdateDeviceRegistrationDto } from './dto/update-device-registration.dto';
+import { ApiQuery, ApiTags, ApiOkResponse  } from '@nestjs/swagger';
 
+@ApiTags('Device')
 @Controller('/api/v1/applications/device-registration')
 export class DeviceRegistrationController {
   constructor(private readonly deviceRegistrationService: DeviceRegistrationService) {}

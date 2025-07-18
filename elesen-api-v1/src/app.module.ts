@@ -99,6 +99,7 @@ import { DeviceRegistrationModule } from './device-registration/device-registrat
 import { Search } from './search/entities/search.entity';
 import { DeviceRegistration } from './device-registration/entities/device-registration.entity';
 import { PushNotificationModule } from './push-notification/push-notification.module';
+import { DigitalIdModule } from './digital-id/digital-id.module';
 
 @Module({
   imports: [
@@ -212,6 +213,7 @@ import { PushNotificationModule } from './push-notification/push-notification.mo
                   DeviceRegistration
                 ]}),
   PushNotificationModule,
+  DigitalIdModule,
               ],
   controllers: [AppController],
   providers: [AppService, AuthService],

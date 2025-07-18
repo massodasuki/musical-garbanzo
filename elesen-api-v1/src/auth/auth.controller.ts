@@ -7,13 +7,13 @@ import { ApiQuery, ApiTags, ApiOkResponse  } from '@nestjs/swagger';
 import { LoginResponseDto } from 'src/swagger/response/login-response.dto';
 
 @ApiTags('Login')
-@Controller('auth')
+@Controller('/api/v1/applications/auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   
   @Post('login')
-    @ApiQuery({ name: 'username', required: true, description: 'Username Pegawai' })
+    @ApiQuery({ name: 'username', required: true, description: 'ID Pegawai' })
     @ApiQuery({ name: 'password', required: true })
     @ApiOkResponse({
       description: 'Returns JWT access token after successful login',

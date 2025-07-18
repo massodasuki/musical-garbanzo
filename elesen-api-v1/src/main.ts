@@ -15,6 +15,10 @@ async function bootstrap() {
     .setDescription('API documentation for Jabatan Perikanan vessel system')
     .setVersion('1.0')
     .addBearerAuth() // enable JWT token usage
+    .addTag("Device")
+    .addTag("Login")
+    .addTag("DigitalID")
+    .addTag("Search")
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
