@@ -10,6 +10,6 @@ export class PeralatanTambahanUtama {
   nama: string;
 
   @ManyToOne(() => VesselInspection, vi => vi.peralatanTambahanUtama)
-  @JoinColumn({ name: 'pemeriksaan_vesel_id' })
+  @JoinColumn({ name: 'pemeriksaan_vessels_id' })
   vesselInspection: VesselInspection;
 }

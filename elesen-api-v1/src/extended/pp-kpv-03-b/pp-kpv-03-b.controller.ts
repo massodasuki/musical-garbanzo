@@ -24,21 +24,21 @@ export class PpKpv03BController {
   }
 
   @UseGuards(AuthGuard('jwt'))
-  @Get(':noTetapVesel')
-  findOne(@Param('noTetapVesel') noTetapVesel: string) {
-    return this.ppKpv03BService.findOne(noTetapVesel);
+  @Get(':noVessels')
+  findOne(@Param('noVessels') noVessels: string) {
+    return this.ppKpv03BService.findOne(noVessels);
   }
 
   @UseGuards(AuthGuard('jwt'))
-  @Patch(':noTetapVesel')
-  update(@Param('noTetapVesel') noTetapVesel: string, @Body() updatePpKpv03BDto: UpdateVesselInspectionDto) {
-    return this.ppKpv03BService.update(noTetapVesel, updatePpKpv03BDto);
+  @Patch(':noVessels')
+  update(@Param('noVessels') noVessels: string, @Body() updatePpKpv03BDto: UpdateVesselInspectionDto) {
+    return this.ppKpv03BService.update(noVessels, updatePpKpv03BDto);
   }
 
   @UseGuards(AuthGuard('jwt'))
-  @Delete(':noTetapVesel')
-  remove(@Param('noTetapVesel') noTetapVesel: string) {
-    return this.ppKpv03BService.softDelete(noTetapVesel);
+  @Delete(':noVessels')
+  remove(@Param('noVessels') noVessels: string) {
+    return this.ppKpv03BService.softDelete(noVessels);
   }
   
 }

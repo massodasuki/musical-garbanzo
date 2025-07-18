@@ -22,6 +22,6 @@ export class PeralatanMenangkap {
   netHauler: boolean;
 
   @OneToOne(() => VesselInspection, vi => vi.peralatanMenangkap)
-  @JoinColumn({ name: 'pemeriksaan_vesel_id' })
+  @JoinColumn({ name: 'pemeriksaan_vessels_id' })
   vesselInspection: VesselInspection;
 }

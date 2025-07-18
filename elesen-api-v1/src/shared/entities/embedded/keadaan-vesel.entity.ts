@@ -19,6 +19,6 @@ export class KeadaanVesel {
   tarikhPemeriksaan: string;
 
   @OneToOne(() => VesselInspection, vi => vi.keadaanVesel)
-  @JoinColumn({ name: 'pemeriksaan_vesel_id' })
+  @JoinColumn({ name: 'pemeriksaan_vessels_id' })
   vesselInspection: VesselInspection;
 }

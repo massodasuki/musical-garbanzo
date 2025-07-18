@@ -11,7 +11,7 @@ import { Type } from 'class-transformer';
 
 export class CreateVesselInspectionDto {
   @IsString()
-  noTetapVesel: string;
+  noVessels: string;
 
   @IsString()
   pangkalan: string;

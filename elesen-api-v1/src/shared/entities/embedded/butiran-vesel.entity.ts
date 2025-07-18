@@ -19,6 +19,6 @@ export class ButiranVesel {
   muatanGrt: number;
 
   @OneToOne(() => VesselInspection, vi => vi.butiranVesel)
-  @JoinColumn({ name: 'pemeriksaan_vesel_id' })
+  @JoinColumn({ name: 'pemeriksaan_vessels_id' })
   vesselInspection: VesselInspection;
 }

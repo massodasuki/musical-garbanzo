@@ -13,7 +13,7 @@ export class EmpunyaVesel {
   ic: string;
 
   @OneToOne(() => VesselInspection, vi => vi.empunyaVesel)
-  @JoinColumn({ name: 'pemeriksaan_vesel_id' })
+  @JoinColumn({ name: 'pemeriksaan_vessels_id' })
   vesselInspection: VesselInspection;
 }
 

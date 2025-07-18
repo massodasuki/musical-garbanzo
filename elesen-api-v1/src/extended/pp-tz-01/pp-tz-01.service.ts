@@ -17,11 +17,11 @@ constructor(
 
     async create(createVesselInspectionDto: CreateVesselInspectionDto): Promise<VesselInspection> {
       const existing = await this.vesselRepository.findOne({
-        where: { noTetapVesel: createVesselInspectionDto.noTetapVesel },
+        where: { noVessels: createVesselInspectionDto.noVessels },
       });
 
       if (existing) {
-        throw new ConflictException('noTetapVesel already exists');
+        throw new ConflictException('noVessels already exists');
       }
       const newVesselInspection = this.vesselRepository.create({
         ...createVesselInspectionDto,
@@ -59,9 +59,9 @@ constructor(
   };
 }
 
-  findOne(noTetapVesel: string) {
+  findOne(noVessels: string) {
     return this.vesselRepository.findOne({
-      where: { noTetapVesel },
+      where: { noVessels },
       relations: {
         empunyaVesel: true,
         nakhoda: true,
@@ -80,11 +80,11 @@ constructor(
 
 
 
-    async update(noTetapVesel: string, dto: UpdateVesselInspectionDto): Promise<VesselInspection> {
-      const existing = await this.vesselRepository.findOne({ where: { noTetapVesel } });
+    async update(noVessels: string, dto: UpdateVesselInspectionDto): Promise<VesselInspection> {
+      const existing = await this.vesselRepository.findOne({ where: { noVessels } });
       
       if (!existing) {
-        throw new NotFoundException(`Vessel with id ${noTetapVesel} not found`);
+        throw new NotFoundException(`Vessel with id ${noVessels} not found`);
       }
 
       // Shallow merge or customize deeply as needed
@@ -92,8 +92,8 @@ constructor(
       return this.vesselRepository.save(updated);
     }
 
-    async softDelete(noTetapVesel: string): Promise<void> {
-    const vessel = await this.vesselRepository.findOneBy({ noTetapVesel });
+    async softDelete(noVessels: string): Promise<void> {
+    const vessel = await this.vesselRepository.findOneBy({ noVessels });
     if (vessel) {
       await this.vesselRepository.softRemove(vessel);
     }

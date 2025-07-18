@@ -13,6 +13,6 @@ export class PukatTunda {
   dicatTerang: boolean;
 
   @OneToOne(() => VesselInspection, vi => vi.pukatTunda)
-  @JoinColumn({ name: 'pemeriksaan_vesel_id' })
+  @JoinColumn({ name: 'pemeriksaan_vessels_id' })
   vesselInspection: VesselInspection;
 }

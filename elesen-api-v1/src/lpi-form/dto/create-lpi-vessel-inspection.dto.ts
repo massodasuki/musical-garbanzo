@@ -11,8 +11,13 @@ import { Type } from 'class-transformer';
 
 export class CreateLpiVesselInspectionDto {
   @IsString()
-  @IsNotEmpty({ message: 'noTetapVesel is required' })
-  noTetapVesel: string;
+  @IsNotEmpty({ message: 'noVessels is required' })
+  noVessels: string;
+
+  @IsString()
+  @IsNotEmpty({ message: 'vesselsId is required' })
+  @Type(() => EmpunyaVeselDto)
+  vesselsId: string;
 
   @IsString()
   pangkalan: string;

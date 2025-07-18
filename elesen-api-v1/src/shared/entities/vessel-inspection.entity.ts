@@ -11,8 +11,9 @@ import { PeralatanTambahanUtama } from './embedded/peralatan-tambahan-utama.enti
 import { PeralatanTambahanTambahan } from './embedded/peralatan-tambahan-tambahan.entity';
 import { KeadaanVesel } from './embedded/keadaan-vesel.entity';
 import { JenisBorang } from '../../common/enums/jenis-borang.enum';
+import { Vessels } from 'src/vessels/entities/vessel.entity';
 
-@Entity({name : 'pemeriksaan_vesel'})
+@Entity({name : 'pemeriksaan_vessels'})
 export class VesselInspection {
   @PrimaryGeneratedColumn('increment', { type: 'bigint', unsigned: true })
   id: number;
@@ -20,11 +21,14 @@ export class VesselInspection {
   @Column({ name: 'jenis_borang', type: 'enum', enum: JenisBorang })
   jenisBorang: string;
 
-  @Column({ name: 'no_tetap_vesel', unique: true })
-  noTetapVesel: string;
+  @Column({ name: 'no_vessels', unique: true })
+  noVessels: string;
 
   @Column()
   pangkalan: string;
+
+  @OneToOne(() => Vessels, vessels => vessels.vessel_no, { cascade: true })
+  vesselsId: Vessels;
 
   @OneToOne(() => EmpunyaVesel, empunyaVesel => empunyaVesel.vesselInspection, { cascade: true })
   empunyaVesel: EmpunyaVesel;

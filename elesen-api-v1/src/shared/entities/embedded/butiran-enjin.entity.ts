@@ -19,6 +19,6 @@ export class ButiranEnjin {
   noEnjin: string;
 
   @OneToOne(() => VesselInspection, vi => vi.butiranEnjin)
-  @JoinColumn({ name: 'pemeriksaan_vesel_id' })
+  @JoinColumn({ name: 'pemeriksaan_vessels_id' })
   vesselInspection: VesselInspection;
 }

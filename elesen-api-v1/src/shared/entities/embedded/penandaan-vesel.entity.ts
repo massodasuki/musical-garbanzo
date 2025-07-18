@@ -20,6 +20,6 @@ export class PenandaanVesel {
   @Column({ name: 'di_bumbung_rumah' }) diBumbungRumah: boolean;
 
   @OneToOne(() => VesselInspection, vi => vi.penandaanVesel)
-  @JoinColumn({ name: 'pemeriksaan_vesel_id' })
+  @JoinColumn({ name: 'pemeriksaan_vessels_id' })
   vesselInspection: VesselInspection;
 }
