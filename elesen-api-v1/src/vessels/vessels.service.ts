@@ -5,6 +5,7 @@ import { Vessels } from './entities/vessel.entity';
 import { CreateVesselDto } from './dto/create-vessel.dto';
 import { UpdateVesselDto } from './dto/update-vessel.dto';
 import { PaginationQueryDto } from '../shared/dto/pagination-query.dto';
+
 @Injectable()
 export class VesselsService {
   constructor(
@@ -16,10 +17,6 @@ export class VesselsService {
     const vessel = this.vesselRepository.create(dto);
     return this.vesselRepository.save(vessel);
   }
-
-  // findAll() {
-  //   return this.vesselRepository.find();
-  // }
 
    async findAll(paginationQuery: PaginationQueryDto) {
   const { limit = 10, page = 1 } = paginationQuery;

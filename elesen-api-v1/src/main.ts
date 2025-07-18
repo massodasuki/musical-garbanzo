@@ -18,6 +18,7 @@ async function bootstrap() {
     .addTag("Device")
     .addTag("Login")
     .addTag("DigitalID")
+    .addTag("Vessels")
     .addTag("Search")
     .build();
 
