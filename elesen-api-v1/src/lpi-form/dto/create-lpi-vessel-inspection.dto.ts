@@ -14,10 +14,10 @@ export class CreateLpiVesselInspectionDto {
   @IsNotEmpty({ message: 'noVessels is required' })
   noVessels: string;
 
-  @IsString()
-  @IsNotEmpty({ message: 'vesselsId is required' })
-  @Type(() => EmpunyaVeselDto)
-  vesselsId: string;
+  // @IsString()
+  // @IsNotEmpty({ message: 'vesselsId is required' })
+  // @Type(() => EmpunyaVeselDto)
+  // vesselsId: string;
 
   @IsString()
   pangkalan: string;

@@ -27,8 +27,8 @@ export class VesselInspection {
   @Column()
   pangkalan: string;
 
-  @OneToOne(() => Vessels, vessels => vessels.vessel_no, { cascade: true })
-  vesselsId: Vessels;
+  // @OneToOne(() => Vessels, vessels => vessels.vessel_no, { cascade: true })
+  // vesselsId: Vessels;
 
   @OneToOne(() => EmpunyaVesel, empunyaVesel => empunyaVesel.vesselInspection, { cascade: true })
   empunyaVesel: EmpunyaVesel;
