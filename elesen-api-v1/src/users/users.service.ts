@@ -34,6 +34,7 @@ export class UsersService {
         'profile.race',
         'profile.religion',
         'profile.maritalStatus',
+        'roles',
       ],
     });
   }

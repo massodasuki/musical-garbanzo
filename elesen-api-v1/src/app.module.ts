@@ -108,6 +108,7 @@ import { Vessels } from './vessels/entities/vessel.entity';
 
 import { ProfileUser } from './users/entities/profile-user.entity'; 
 import { CodeMaster } from './users/entities/code-master.entity';
+import { Role } from './users/entities/role.entity';
 
 
 @Module({
@@ -140,6 +141,7 @@ import { CodeMaster } from './users/entities/code-master.entity';
       entities: [ User,
                   ProfileUser,
                   CodeMaster,
+                  Role,
                   Vessels,
                   VesselInspection,
                   EmpunyaVesel, 

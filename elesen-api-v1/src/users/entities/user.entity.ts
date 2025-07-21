@@ -5,10 +5,13 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   DeleteDateColumn,
-  OneToOne
+  OneToOne,
+  JoinTable,
+  ManyToMany
 } from 'typeorm';
 import { ProfileUser } from './profile-user.entity';
 import { profile } from 'console';
+import { Role } from './role.entity';
 @Entity('users')
 export class  User {
   @PrimaryGeneratedColumn('uuid')
@@ -109,4 +112,12 @@ export class  User {
 
   @OneToOne(() => ProfileUser, profile => profile.user)
   profile: ProfileUser;
+
+  @ManyToMany(() => Role, role => role.users)
+  @JoinTable({
+    name: 'user_role',
+    joinColumn: { name: 'user_id', referencedColumnName: 'id' },
+    inverseJoinColumn: { name: 'role_id', referencedColumnName: 'id' },
+  })
+  roles: Role[];
 }
