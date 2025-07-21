@@ -15,13 +15,14 @@ export class VesselsController {
     return this.vesselsService.create(dto);
   }
 
-  // @Get()
-  // findAll() {
-  //   return this.vesselsService.findAll();
-  // }
 
   @Get()
   findAll(@Query() paginationQuery: PaginationQueryDto) {
+    return this.vesselsService.findAll(paginationQuery);
+  }
+
+  @Get()
+  findOneUser(@Query() paginationQuery: PaginationQueryDto) {
     return this.vesselsService.findAll(paginationQuery);
   }
 

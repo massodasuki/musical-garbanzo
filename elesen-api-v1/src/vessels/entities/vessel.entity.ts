@@ -1,12 +1,15 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entities } from 'src/users/entities/entities.entity';
+import { Entity, PrimaryGeneratedColumn, Column, JoinColumn, ManyToOne } from 'typeorm';
 
 @Entity('vessels')
 export class Vessels {
   @PrimaryGeneratedColumn()
   id: string;
 
-  @Column()
-  entity_id: string;
+  @ManyToOne(() => Entities, { nullable: true })
+  @JoinColumn({ name: 'entity_id' })
+  entity: Entities;
+
 
   @Column()
   vessel_no: string;

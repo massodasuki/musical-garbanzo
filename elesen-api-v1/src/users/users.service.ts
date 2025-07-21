@@ -86,5 +86,12 @@ export class UsersService {
     .getMany();
   }
 
-  
+  async getUsersByVessel(vesselNo: string): Promise<User[]> {
+  return this.userRepo
+    .createQueryBuilder('user')
+    .leftJoinAndSelect('user.entity', 'entity') // ✅ use 'entity' (singular)
+    .leftJoin('entity.vessels', 'vessel')
+    .where('vessel.vessel_no = :vesselNo', { vesselNo })
+    .getMany(); // ✅ fetch the result
+  }
 }

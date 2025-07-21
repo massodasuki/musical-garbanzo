@@ -7,11 +7,14 @@ import {
   DeleteDateColumn,
   OneToOne,
   JoinTable,
-  ManyToMany
+  ManyToMany,
+  JoinColumn,
+  ManyToOne
 } from 'typeorm';
 import { ProfileUser } from './profile-user.entity';
 import { profile } from 'console';
 import { Role } from './role.entity';
+import { Entities } from './entities.entity';
 @Entity('users')
 export class  User {
   @PrimaryGeneratedColumn('uuid')
@@ -95,8 +98,9 @@ export class  User {
   @DeleteDateColumn()
   deleted_at: Date;
 
-  @Column({ nullable: true })
-  entity_id: string;
+  @ManyToOne(() => Entities, { nullable: true })
+  @JoinColumn({ name: 'entity_id' })
+  entity: Entities;
 
   @Column({ nullable: true })
   position_id: string;

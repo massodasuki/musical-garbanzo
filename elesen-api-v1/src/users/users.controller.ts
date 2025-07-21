@@ -34,6 +34,15 @@ export class UsersController {
     return this.usersService.getUsersByRoleLevelAndUsername(level, username);
   }
 
+  @ApiOperation({ summary: 'List all nelayan base on vessles no', description: 'Returns user(s) who have the specified role level and IC number (stored in profile.ref).' })
+  @ApiParam({ name: 'vessels', type: String, description: 'Vessels (e.g. 1, 2)' })
+  @Get('v')
+  getUserByVessels(
+    @Query('vessels') noVessel: string
+  ) {
+    return this.usersService.getUsersByVessel(noVessel);
+  }
+
     // Get by level
   @ApiOperation({
     summary: 'Get users by role level',
