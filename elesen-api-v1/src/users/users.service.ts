@@ -62,9 +62,29 @@ export class UsersService {
     }
   
   async softDelete(username: string): Promise<void> {
-    const vessel = await this.userRepo.findOneBy({ username });
-    if (vessel) {
-      await this.userRepo.softRemove(vessel);
+    const user = await this.userRepo.findOneBy({ username });
+    if (user) {
+      await this.userRepo.softRemove(user);
     }
   }
+
+
+  async getUsersByRoleLevel(level: number): Promise<User[]> {
+  return this.userRepo
+    .createQueryBuilder('user')
+    .leftJoinAndSelect('user.roles', 'role')
+    .where('role.level = :level', { level })
+    .getMany();
+  }
+
+  async getUsersByRoleLevelAndUsername(level: number, username: string): Promise<User[]> {
+  return this.userRepo
+    .createQueryBuilder('user')
+    .leftJoinAndSelect('user.roles', 'role')
+    .where('role.level = :level', { level })
+    .andWhere('user.username = :username', { username })
+    .getMany();
+  }
+
+  
 }
