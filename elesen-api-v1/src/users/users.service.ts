@@ -25,6 +25,19 @@ export class UsersService {
     return user;
   }
 
+  async getUserWithProfile(id: UUID) {
+    return this.userRepo.findOne({
+      where: { id },
+      relations: [
+        'profile',
+        'profile.gender',
+        'profile.race',
+        'profile.religion',
+        'profile.maritalStatus',
+      ],
+    });
+  }
+
   async createUser(username: string, password: string): Promise<User> {
     const hashedPassword = await bcrypt.hash(password, 10);
     const user = this.userRepo.create({ username, password: hashedPassword });

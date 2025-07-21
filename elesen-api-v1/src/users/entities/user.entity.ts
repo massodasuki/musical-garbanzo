@@ -5,10 +5,12 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   DeleteDateColumn,
+  OneToOne
 } from 'typeorm';
-
+import { ProfileUser } from './profile-user.entity';
+import { profile } from 'console';
 @Entity('users')
-export class User {
+export class  User {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
@@ -104,4 +106,7 @@ export class User {
 
   @Column({ length: 50, nullable: true })
   watikah_status: string;
+
+  @OneToOne(() => ProfileUser, profile => profile.user)
+  profile: ProfileUser;
 }

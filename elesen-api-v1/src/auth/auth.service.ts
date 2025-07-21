@@ -43,12 +43,14 @@ export class AuthService {
 
     async loginWithProfile(user: any, res: any) {
     const tokens = this.getTokens(user.id, user.username);
+    let userProflie =  await this.usersService.getUserWithProfile(user.id);
+    console.log(userProflie);
     res.cookie('refresh_token', tokens.refreshToken, {
       httpOnly: true,
       secure: true,
       sameSite: 'strict',
     });
-    return res.json({ accessToken: tokens.accessToken, profile : user });
+    return res.json({ accessToken: tokens.accessToken, profile : userProflie });
   }
 
   async login(user: any, res: any) {

@@ -22,8 +22,14 @@ export class UsersController {
     return this.usersService.getAllUsers();
   }
 
+  
+  @Get('profile/:id')
+  async getUser(@Param('id') id: UUID) {
+    return this.usersService.getUserWithProfile(id);
+  }
+
   // GET /users/:id - Get user by ID
-  @Get('/:id')
+  @Get('id/:id')
   async findById(@Param('id') id: UUID) {
     return this.usersService.findById(id);
   }
@@ -42,6 +48,7 @@ export class UsersController {
     update(@Param('username') username: string, @Body() updateUserDto: UpdateUserDto) {
       return this.usersService.update(username, updateUserDto);
   }
+
 
   
 }

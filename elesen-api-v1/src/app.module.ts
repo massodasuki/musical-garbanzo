@@ -106,6 +106,9 @@ import { Vessels } from './vessels/entities/vessel.entity';
 // import { NdPp08Module } from './extended/nd-pp-08/nd-pp-08.module';
 // import { NdPp09Module } from './extended/nd-pp-09/nd-pp-09.module';
 
+import { ProfileUser } from './users/entities/profile-user.entity'; 
+import { CodeMaster } from './users/entities/code-master.entity';
+
 
 @Module({
   imports: [
@@ -119,7 +122,6 @@ import { Vessels } from './vessels/entities/vessel.entity';
   PushNotificationModule,
   DigitalIdModule,
   VesselsModule,
-
 
   ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'uploads'),
@@ -136,6 +138,8 @@ import { Vessels } from './vessels/entities/vessel.entity';
       // synchronize: true,          // ✅ auto create tables (turn off in prod)
       // logging: true,
       entities: [ User,
+                  ProfileUser,
+                  CodeMaster,
                   Vessels,
                   VesselInspection,
                   EmpunyaVesel, 
