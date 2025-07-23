@@ -4,6 +4,7 @@ import { Repository } from 'typeorm';
 import { CreateDeviceRegistrationDto } from './dto/create-device-registration.dto';
 import { UpdateDeviceRegistrationDto } from './dto/update-device-registration.dto';
 import { DeviceRegistration } from './entities/device-registration.entity';
+import { PaginationQueryDto } from 'src/shared/dto/pagination-query.dto';
 
 @Injectable()
 export class DeviceRegistrationService {
@@ -17,9 +18,27 @@ export class DeviceRegistrationService {
     return this.deviceRepository.save(registration);
   }
 
-  async findAll() : Promise<DeviceRegistration[]> {
-    return this.deviceRepository.find();
-  }
+  // async findAll() : Promise<DeviceRegistration[]> {
+  //   return this.deviceRepository.find();
+  // }
+
+  async findAll(paginationQuery: PaginationQueryDto) {
+    const { limit = 10, page = 1 } = paginationQuery;
+  
+    const [data, total] = await this.deviceRepository.findAndCount({
+        take: limit,
+        skip: (page - 1) * limit
+      });
+  
+      return {
+        data,
+        total,
+        page,
+        pageSize: limit,
+        totalPages: Math.ceil(total / limit),
+      };
+    }
+  
 
   async findOne(id: number): Promise<DeviceRegistration> {
     const token = await this.deviceRepository.findOne({ where: { id } });

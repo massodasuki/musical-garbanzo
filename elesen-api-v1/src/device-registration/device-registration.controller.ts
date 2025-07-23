@@ -1,8 +1,9 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
 import { DeviceRegistrationService } from './device-registration.service';
 import { CreateDeviceRegistrationDto } from './dto/create-device-registration.dto';
 import { UpdateDeviceRegistrationDto } from './dto/update-device-registration.dto';
 import { ApiQuery, ApiTags, ApiOkResponse  } from '@nestjs/swagger';
+import { PaginationQueryDto } from 'src/shared/dto/pagination-query.dto';
 
 @ApiTags('Device')
 @Controller('/api/v1/applications/device-registration')
@@ -15,8 +16,8 @@ export class DeviceRegistrationController {
   }
 
   @Get()
-  findAll() {
-    return this.deviceRegistrationService.findAll();
+  findAll(@Query() paginationQuery: PaginationQueryDto) {
+    return this.deviceRegistrationService.findAll(paginationQuery);
   }
 
   @Get(':id')
