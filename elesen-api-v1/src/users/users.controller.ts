@@ -29,7 +29,8 @@ export class UsersController {
   })
   @Get('nelayan')
   async findAllNelayan (@Query('page') page = 1, @Query('limit') limit = 10) {
-    return this.usersService.getUsersByRoleLevel(5, page, limit) // 5 = nelayan KIV
+    let nelayanLevel = 5;
+    return this.usersService.getUsersByRoleLevel(nelayanLevel, page, limit) // 5 = nelayan KIV
   }
 
   @Get('level/:level')
@@ -56,7 +57,7 @@ export class UsersController {
     type: String,
     description: 'IC/Username number (e.g. 920101011234)',
   })
-  @Get('q')
+  @Get('n')
   getUserByRoleAndIC (
     @Query('level') level: number,
     @Query('username') username: string,

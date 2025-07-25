@@ -110,10 +110,16 @@ import { ProfileUser } from './users/entities/profile-user.entity';
 import { CodeMaster } from './users/entities/code-master.entity';
 import { Role } from './users/entities/role.entity';
 import { Entities } from './users/entities/entities.entity';
+import { LpiForm } from './lpi-form/entities/lpi-form.entity';
+import { LpiFormImage } from './lpi-form/entities/lpi-form-image.entity';
+import { MulterModule } from '@nestjs/platform-express';
 
 
 @Module({
   imports: [
+      MulterModule.register({
+      dest: './uploads', // Or any destination
+    }),
   AuthModule, 
   UsersModule, 
   JwtModule,
@@ -137,8 +143,8 @@ import { Entities } from './users/entities/entities.entity';
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_DATABASE,       // ⚠️ your database name
-      // synchronize: true,          // ✅ auto create tables (turn off in prod)
-      // logging: true,
+      synchronize: true,          // ✅ auto create tables (turn off in prod)
+      logging: true,
       entities: [ User,
                   ProfileUser,
                   CodeMaster,
@@ -146,6 +152,8 @@ import { Entities } from './users/entities/entities.entity';
                   Entities,
                   Vessels,
                   VesselInspection,
+                  LpiForm,
+                  LpiFormImage,
                   EmpunyaVesel, 
                   Nakhoda, 
                   PenandaanVesel, 

@@ -20,6 +20,7 @@ export class ImageController {
     @UploadedFile() file: Express.Multer.File,
     @Body('imageType') imageType: string,
   ) {
+    console.log(file);
     return this.imageUploadService.handleUpload(file, imageType);
   }
 }

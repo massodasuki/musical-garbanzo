@@ -1,4 +1,4 @@
-import { PartialType } from '@nestjs/mapped-types';
+import { PartialType } from '@nestjs/swagger';
 import { CreateLpiFormDto } from './create-lpi-form.dto';
 
-export class UpdatePrPg01CDto extends PartialType(CreateLpiFormDto) {}
+export class UpdateLpiFormDto extends PartialType(CreateLpiFormDto) {}

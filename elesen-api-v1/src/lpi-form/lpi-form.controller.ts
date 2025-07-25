@@ -1,76 +1,76 @@
-import { Controller, 
-  Get, 
-  Post, 
-  Body, 
-  Patch, 
-  Param, 
-  Delete, 
-  UseGuards, 
-  Query, UploadedFiles, UseInterceptors} from '@nestjs/common';
-import { LpiFormService } from './lpi-form.service';
-import { UpdateVesselInspectionDto } from '../shared/dto/update-vessel-inspection.dto';
-import { CreateLpiVesselInspectionDto } from './dto/create-lpi-vessel-inspection.dto';
-import { AuthGuard } from '@nestjs/passport';
-import { PaginationQueryDto } from '../shared/dto/pagination-query.dto';
-import { ApiTags } from '@nestjs/swagger';
-import { FileFieldsInterceptor } from '@nestjs/platform-express';
-import { diskStorage } from 'multer';
-import { extname } from 'path';
+import {
+  Controller,
+  Post,
+  UseInterceptors,
+  UploadedFiles,
+  Body,
+  Req,
+} from '@nestjs/common';
+import { AnyFilesInterceptor, FilesInterceptor } from '@nestjs/platform-express';
 import { CreateLpiFormDto } from './dto/create-lpi-form.dto';
+import { LpiFormService } from './lpi-form.service';
+import multer, { diskStorage } from 'multer';
+import { extname } from 'path';
 
-@ApiTags('LPI FORM')
-@Controller('/api/v1/applications/lpi-form')
+@Controller('api/v1/applications/lpi-formx')
 export class LpiFormController {
   constructor(private readonly lpiFormService: LpiFormService) {}
 
-  // @UseGuards(AuthGuard('jwt'))
+    @Post('s')
+  @UseInterceptors(
+    AnyFilesInterceptor({
+      storage: diskStorage({
+        destination: './uploads',
+        filename: (req, file, cb) => {
+          const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
+          cb(null, `${file.fieldname}-${uniqueSuffix}${extname(file.originalname)}`);
+        },
+      }),
+    }),
+  )
+  upload(@Req() req) {
+    // Filter only files with fieldname prefix "img_"
+    const uploaded = (req.files || []).filter((f) =>
+      f.fieldname.startsWith('img_'),
+    );
+    console.log('Received Images:', uploaded);
+
+    return {
+      message: 'Dynamic image fields uploaded',
+      files: uploaded.map((f) => ({
+        field: f.fieldname,
+        filename: f.filename,
+        originalname: f.originalname,
+      })),
+    };
+  }
+
   @Post()
   @UseInterceptors(
-    FileFieldsInterceptor([
-      { name: 'imgA', maxCount: 1 },
-      { name: 'imgB', maxCount: 1 },
-      { name: 'imgC', maxCount: 1 },
-    ]),
+    AnyFilesInterceptor(),
   )
   async create(
     @Body() body: any,
-    @UploadedFiles()
-    files: {
-      imgA?: Express.Multer.File[];
-      imgB?: Express.Multer.File[];
-      imgC?: Express.Multer.File[];
-    },
+    @Req() req,
   ) {
-    return this.lpiFormService.handleFormSubmission(body, files);
+
+    const uploaded = (req.files || []).filter((f) =>
+      f.fieldname.startsWith('img_'),
+    );
+    console.log('Received Images:', uploaded);
+
+    let img =  {
+      message: 'Dynamic image fields uploaded',
+      files: uploaded.map((f) => ({
+        field: f.fieldname,
+        filename: f.filename,
+        originalname: f.originalname,
+      })),
+    };
+    // let s =  this.lpiFormService.handleUploads(uploaded)
+    const payload = body.payload;
+    return  this.lpiFormService.handleUploads(uploaded, body.formId);
   }
 
-  // @Post()
-  // create(@Body() createLpiFormDto: CreateLpiVesselInspectionDto) {
-  //   return this.lpiFormService.create(createLpiFormDto);
-  // }
-
-  @UseGuards(AuthGuard('jwt'))
-  @Get()
-  findAll(@Query() paginationQuery: PaginationQueryDto) {
-    return this.lpiFormService.findAll(paginationQuery);
-  }
-
-  @UseGuards(AuthGuard('jwt'))
-  @Get(':noVessels')
-  findOne(@Param('noVessels') noVessels: string) {
-    return this.lpiFormService.findOne(noVessels);
-  }
-
-  @UseGuards(AuthGuard('jwt'))
-  @Patch(':noVessels')
-  update(@Param('noVessels') noVessels: string, @Body() updateLpiFormDto: UpdateVesselInspectionDto) {
-    return this.lpiFormService.update(noVessels, updateLpiFormDto);
-  }
-
-  @UseGuards(AuthGuard('jwt'))
-  @Delete(':noVessels')
-  remove(@Param('noVessels') noVessels: string) {
-    return this.lpiFormService.softDelete(noVessels);
-  }
   
 }

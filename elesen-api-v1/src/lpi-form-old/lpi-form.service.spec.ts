@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { LpiFormService } from './lpi-form.service';
 
-describe('LpiFormService', () => {
+describe('PrPg01CService', () => {
   let service: LpiFormService;
 
   beforeEach(async () => {

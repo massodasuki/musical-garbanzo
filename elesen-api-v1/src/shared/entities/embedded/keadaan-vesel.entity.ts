@@ -1,7 +1,7 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToOne, JoinColumn } from 'typeorm';
 import { VesselInspection } from '../vessel-inspection.entity';
 
-@Entity('keadaan_vesel')
+@Entity('keadaan_vessels')
 export class KeadaanVesel {
   @PrimaryGeneratedColumn({ type: 'bigint', unsigned: true })
   id: number;

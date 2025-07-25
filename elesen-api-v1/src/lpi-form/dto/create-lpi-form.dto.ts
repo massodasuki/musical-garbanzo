@@ -1,22 +1,14 @@
-import {
-  IsString,
-  IsNotEmpty,
-  IsOptional,
-  ValidateNested
-} from 'class-validator';
 import { Type } from 'class-transformer';
+import { IsNotEmpty, ValidateNested } from 'class-validator';
 import { CreateLpiVesselInspectionDto } from './create-lpi-vessel-inspection.dto';
 
-
 export class CreateLpiFormDto {
-  @IsOptional() @IsString() user: string;
-  @IsOptional() @IsString() formId: string;
-
+  @IsNotEmpty()
+  user: string;
 
   @IsNotEmpty()
-  @ValidateNested() @Type(() => Object) part1: CreateLpiVesselInspectionDto
+  formId: string;
 
-  @IsString() imgAType: string;
-  @IsString() imgBType: string;
-  @IsString() imgCType: string;
+  @IsNotEmpty()
+  payload: string;
 }
