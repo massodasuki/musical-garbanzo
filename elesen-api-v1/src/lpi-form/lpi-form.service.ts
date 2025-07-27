@@ -12,6 +12,7 @@ import { UpdateVesselInspectionDto } from 'src/shared/dto/update-vessel-inspecti
 import { mkdirSync, writeFileSync } from 'fs';
 import { extname, join, relative } from 'path';
 import { CreateLpiFormDto } from './dto/create-lpi-form.dto';
+import { v4 as uuidv4 } from 'uuid';
 
 @Injectable()
 export class LpiFormService {
@@ -23,51 +24,11 @@ export class LpiFormService {
           private vesselRepository: Repository<VesselInspection>,
 
     @InjectRepository(LpiFormImage)
-    private readonly imageRepo: Repository<LpiFormImage>,
+    private readonly lpiFormImageRepo: Repository<LpiFormImage>,
   ) {}
 
 
-  // async create(data: {
-  //   user: string;
-  //   formId: string;
-  //   payload: any;
-  //   files: Express.Multer.File[];
-  // }) {
-  //   // Step 1: Parse the payload string into object
-  //   let parsedPayload: any;
-  //   try {
-  //     parsedPayload = JSON.parse(data.payload);
-  //   } catch (err) {
-  //     throw new BadRequestException('Invalid JSON in payload field');
-  //   }
-
-  //   // Step 2: Convert plain payload object into class instance
-  //   const payloadInstance = plainToInstance(CreateLpiVesselInspectionDto, parsedPayload);
-
-  //   // Step 3: Validate the payload instance
-  //   const validationErrors = await validate(payloadInstance);
-  //   if (validationErrors.length > 0) {
-  //     throw new BadRequestException(validationErrors);
-  //   }
-
-  //   // Optional: validate user/formId
-  //   if (!data.user || !data.formId) {
-  //     throw new BadRequestException('Missing user or formId');
-  //   }
-
-  //   // Step 4: Pass data to service
-
-  //   this.lpiFormRepository.create({
-  //     user: data.user,
-  //     formId: data.formId
-  //   });
-
-
-  //   return this.lpiFormRepository.create({
-  //     user: data.user,
-  //     formId: data.formId
-  //   });
-  // }
+ 
 
   // async createx(createLpiVesselInspectionDto: CreateLpiVesselInspectionDto): Promise<VesselInspection> {
         
@@ -153,7 +114,51 @@ export class LpiFormService {
   //       await this.vesselRepository.softRemove(vessel);
   //     }
   //   }
+
+
   
+    async submitForm(body: any, files: Express.Multer.File[]) {
+      let images = await this.handleUploads(files, body.formId);
+      return this.create(body, images)
+    }
+
+     async create(data: {
+      user: string;
+      formId: string;
+      payload: any;
+      files: Express.Multer.File[];
+    }, images : any) {
+      // Step 1: Parse the payload string into object
+      // let parsedPayload: any;
+      // try {
+      //   parsedPayload = JSON.parse(data.payload);
+      // } catch (err) {
+      //   throw new BadRequestException('Invalid JSON in payload field');
+      // }
+
+      // // Step 2: Convert plain payload object into class instance
+      // const payloadInstance = plainToInstance(CreateLpiVesselInspectionDto, parsedPayload);
+
+      // // Step 3: Validate the payload instance
+      // const validationErrors = await validate(payloadInstance);
+      // if (validationErrors.length > 0) {
+      //   throw new BadRequestException(validationErrors);
+      // }
+
+      // // Optional: validate user/formId
+      // if (!data.user || !data.formId) {
+      //   throw new BadRequestException('Missing user or formId');
+      // }
+
+    console.log(images);
+    await this.lpiFormImageRepo.save(images);
+
+      // Step 4: Pass data to service
+      return this.lpiFormRepository.create({
+        user: data.user,
+        formId: data.formId
+      });
+    }
 
     async handleUploads(files: Express.Multer.File[], formId : string) {
        const results : any = [];
@@ -172,6 +177,7 @@ export class LpiFormService {
       }
     
       async handleUpload(file: Express.Multer.File, formId : string) {
+        const newId = uuidv4();
 
         if (!file) throw new BadRequestException('No file uploaded');
     
@@ -182,12 +188,12 @@ export class LpiFormService {
         const fullPath = join(folderPath, filename);
     
         writeFileSync(fullPath, file.buffer);
-    
         return {
-          message: 'Upload successful',
-          filename,
-          relativePath: relative(process.cwd(), fullPath),
-          publicUrl: `/uploads/${filename}`,
+          id: newId,
+          filename : filename,
+          // path: relative(process.cwd(), fullPath),
+          path: `/uploads/${filename}`,
+          lpiFormId : formId
         };
       }
     

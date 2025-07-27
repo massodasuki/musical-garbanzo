@@ -12,38 +12,9 @@ import { LpiFormService } from './lpi-form.service';
 import multer, { diskStorage } from 'multer';
 import { extname } from 'path';
 
-@Controller('api/v1/applications/lpi-formx')
+@Controller('api/v1/applications/lpi-form')
 export class LpiFormController {
   constructor(private readonly lpiFormService: LpiFormService) {}
-
-    @Post('s')
-  @UseInterceptors(
-    AnyFilesInterceptor({
-      storage: diskStorage({
-        destination: './uploads',
-        filename: (req, file, cb) => {
-          const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
-          cb(null, `${file.fieldname}-${uniqueSuffix}${extname(file.originalname)}`);
-        },
-      }),
-    }),
-  )
-  upload(@Req() req) {
-    // Filter only files with fieldname prefix "img_"
-    const uploaded = (req.files || []).filter((f) =>
-      f.fieldname.startsWith('img_'),
-    );
-    console.log('Received Images:', uploaded);
-
-    return {
-      message: 'Dynamic image fields uploaded',
-      files: uploaded.map((f) => ({
-        field: f.fieldname,
-        filename: f.filename,
-        originalname: f.originalname,
-      })),
-    };
-  }
 
   @Post()
   @UseInterceptors(
@@ -68,8 +39,12 @@ export class LpiFormController {
       })),
     };
     // let s =  this.lpiFormService.handleUploads(uploaded)
+
+
+
     const payload = body.payload;
-    return  this.lpiFormService.handleUploads(uploaded, body.formId);
+    return this.lpiFormService.submitForm(body, uploaded);
+    // return  this.lpiFormService.handleUploads(uploaded, body.formId);
   }
 
   
