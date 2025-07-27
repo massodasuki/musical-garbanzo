@@ -12,6 +12,7 @@ import { PeralatanTambahanTambahan } from './embedded/peralatan-tambahan-tambaha
 import { KeadaanVesel } from './embedded/keadaan-vesel.entity';
 import { JenisBorang } from '../../common/enums/jenis-borang.enum';
 import { Vessels } from 'src/vessels/entities/vessel.entity';
+import { LpiForm } from 'src/lpi-form/entities/lpi-form.entity';
 
 @Entity({name : 'pemeriksaan_vessels'})
 export class VesselInspection {
@@ -27,8 +28,8 @@ export class VesselInspection {
   @Column()
   pangkalan: string;
 
-  // @OneToOne(() => Vessels, vessels => vessels.vessel_no, { cascade: true })
-  // vesselsId: Vessels;
+  @OneToOne(() => LpiForm, lpi => lpi.id, { cascade: true })
+  lpiForm: LpiForm;
 
   @OneToOne(() => EmpunyaVesel, empunyaVesel => empunyaVesel.vesselInspection, { cascade: true })
   empunyaVesel: EmpunyaVesel;

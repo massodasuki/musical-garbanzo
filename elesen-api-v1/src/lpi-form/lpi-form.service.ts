@@ -118,13 +118,27 @@ export class LpiFormService {
 
   
     async submitForm(body: any, files: Express.Multer.File[]) {
-      let images = await this.handleUploads(files, body.formId);
+
+
+    const newId = uuidv4();
+    let form =  this.lpiFormRepository.create({
+        id : body.formId,
+        user: body.user
+      })
+    let lpiForm = await this.lpiFormRepository.save(form);
+    let images = await this.handleUploads(files, lpiForm);
+    console.log(images);
+    await this.lpiFormImageRepo.save(images);
+
+
+      
       return this.create(body, images)
     }
 
      async create(data: {
       user: string;
       formId: string;
+      vessels_id: string,
       payload: any;
       files: Express.Multer.File[];
     }, images : any) {
@@ -149,24 +163,30 @@ export class LpiFormService {
       // if (!data.user || !data.formId) {
       //   throw new BadRequestException('Missing user or formId');
       // }
-
+    const newId = uuidv4();
+    let lpiForm =  this.lpiFormRepository.create({
+        id : data.formId,
+        user: data.user
+      })
+    let x = await this.lpiFormRepository.save(lpiForm);
+    console.log(x)
     console.log(images);
     await this.lpiFormImageRepo.save(images);
 
       // Step 4: Pass data to service
-      return this.lpiFormRepository.create({
-        user: data.user,
-        formId: data.formId
-      });
+      // return this.lpiFormRepository.create({
+      //   user: data.user,
+      //   formId: data.formId
+      // });
     }
 
-    async handleUploads(files: Express.Multer.File[], formId : string) {
+    async handleUploads(files: Express.Multer.File[], lpiForm : any) {
        const results : any = [];
        
         for (const file of files) {
         if (file.fieldname.startsWith('img_')) {
           // You can do more here, like moving/renaming or saving to DB
-          const uploaded = await this.handleUpload(file, formId);
+          const uploaded = await this.handleUpload(file, lpiForm);
           console.log(uploaded);
           results.push(uploaded);
           }
@@ -176,12 +196,12 @@ export class LpiFormService {
         return results;
       }
     
-      async handleUpload(file: Express.Multer.File, formId : string) {
+      async handleUpload(file: Express.Multer.File, lpiForm : any) {
         const newId = uuidv4();
 
         if (!file) throw new BadRequestException('No file uploaded');
     
-        const folderPath = './uploads/'+formId+'/';
+        const folderPath = './uploads/'+lpiForm.formId+'/';
         mkdirSync(folderPath, { recursive: true });
     
         const filename = this.generateFileName(file.fieldname, file.originalname);
@@ -193,7 +213,7 @@ export class LpiFormService {
           filename : filename,
           // path: relative(process.cwd(), fullPath),
           path: `/uploads/${filename}`,
-          lpiFormId : formId
+          lpiForm : lpiForm
         };
       }
     

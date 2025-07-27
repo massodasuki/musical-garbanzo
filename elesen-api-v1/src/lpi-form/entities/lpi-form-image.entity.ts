@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
 import { LpiForm } from './lpi-form.entity';
 
 @Entity('lpi_form_images')
@@ -13,6 +13,7 @@ export class LpiFormImage {
   @Column()
   path: string;
 
-  @ManyToOne(() => LpiForm, form => form.images)
+  @ManyToOne(() => LpiForm, lpi => lpi.images)
+  @JoinColumn({ name: 'lpi_form_id' })
   lpiForm: LpiForm;
 }
