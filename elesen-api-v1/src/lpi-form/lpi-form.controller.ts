@@ -1,10 +1,12 @@
 import {
   Controller,
   Post,
+  Get,
   UseInterceptors,
   UploadedFiles,
   Body,
   Req,
+  Param,
 } from '@nestjs/common';
 import { AnyFilesInterceptor, FilesInterceptor } from '@nestjs/platform-express';
 import { CreateLpiFormDto } from './dto/create-lpi-form.dto';
@@ -38,14 +40,13 @@ export class LpiFormController {
         originalname: f.originalname,
       })),
     };
-    // let s =  this.lpiFormService.handleUploads(uploaded)
 
-
-
-    const payload = body.payload;
     return this.lpiFormService.submitForm(body, uploaded);
-    // return  this.lpiFormService.handleUploads(uploaded, body.formId);
   }
 
-  
+  // @UseGuards(AuthGuard('jwt'))
+    @Get(':id')
+    findOne (@Param('id') noVessels: string) {
+      return this.lpiFormService.findOne(noVessels)
+    }
 }
