@@ -8,11 +8,12 @@ import {
 } from './embedded';
 import { JenisBorang } from '../../common/enums/jenis-borang.enum';
 import { Type } from 'class-transformer';
+import { LpiForm } from '../entities/lpi-form.entity';
 
 export class CreateLpiVesselInspectionDto {
   @IsString()
   @IsNotEmpty({ message: 'noVessels is required' })
-  noVessels: string;
+  vesselNo: string;
 
   // @IsString()
   // @IsNotEmpty({ message: 'vesselsId is required' })

@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToOne, OneToMany, DeleteDateColumn, Unique } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToOne, OneToMany, DeleteDateColumn, Unique, JoinColumn, ManyToMany, ManyToOne } from 'typeorm';
 import { EmpunyaVesel } from './embedded/empunya-vesel.entity';
 import { Nakhoda } from './embedded/nakhoda.entity';
 import { PenandaanVesel } from './embedded/penandaan-vesel.entity';
@@ -22,13 +22,14 @@ export class VesselInspection {
   @Column({ name: 'jenis_borang', type: 'enum', enum: JenisBorang })
   jenisBorang: string;
 
-  @Column({ name: 'no_vessels', unique: true })
-  noVessels: string;
+  @Column({ name: 'vessel_no', unique: true })
+  vesselNo: string;
 
   @Column()
   pangkalan: string;
 
-  @OneToOne(() => LpiForm, lpi => lpi.id, { cascade: true })
+  @OneToOne(() => LpiForm, lpi => lpi.vesselInspection)
+  @JoinColumn({ name: 'lpi_form_id' })
   lpiForm: LpiForm;
 
   @OneToOne(() => EmpunyaVesel, empunyaVesel => empunyaVesel.vesselInspection, { cascade: true })

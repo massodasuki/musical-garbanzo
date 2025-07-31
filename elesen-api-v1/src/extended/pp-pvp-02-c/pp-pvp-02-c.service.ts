@@ -17,7 +17,7 @@ constructor(
 
     async create(createVesselInspectionDto: CreateVesselInspectionDto): Promise<VesselInspection> {
       const existing = await this.vesselRepository.findOne({
-        where: { noVessels: createVesselInspectionDto.noVessels },
+        where: { vesselNo: createVesselInspectionDto.noVessels },
       });
 
       if (existing) {
@@ -61,7 +61,7 @@ constructor(
 
   findOne(noVessels: string) {
     return this.vesselRepository.findOne({
-      where: { noVessels },
+      where: { vesselNo: noVessels },
       relations: {
         empunyaVesel: true,
         nakhoda: true,
@@ -81,7 +81,7 @@ constructor(
 
 
     async update(noVessels: string, dto: UpdateVesselInspectionDto): Promise<VesselInspection> {
-      const existing = await this.vesselRepository.findOne({ where: { noVessels } });
+      const existing = await this.vesselRepository.findOne({ where: { vesselNo: noVessels } });
       
       if (!existing) {
         throw new NotFoundException(`Vessel with id ${noVessels} not found`);
@@ -93,7 +93,7 @@ constructor(
     }
 
     async softDelete(noVessels: string): Promise<void> {
-    const vessel = await this.vesselRepository.findOneBy({ noVessels });
+    const vessel = await this.vesselRepository.findOneBy({ vesselNo: noVessels });
     if (vessel) {
       await this.vesselRepository.softRemove(vessel);
     }

@@ -10,7 +10,6 @@ export class Vessels {
   @JoinColumn({ name: 'entity_id' })
   entity: Entities;
 
-
   @Column()
   vessel_no: string;
 

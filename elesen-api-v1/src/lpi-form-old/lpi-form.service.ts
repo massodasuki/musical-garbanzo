@@ -118,7 +118,7 @@ export class LpiFormService {
   async create(createLpiVesselInspectionDto: CreateLpiVesselInspectionDto): Promise<VesselInspection> {
     
     const existing = await this.vesselRepository.findOne({
-      where: { noVessels: createLpiVesselInspectionDto.noVessels },
+      where: { vesselNo: createLpiVesselInspectionDto.noVessels },
     });
 
     if (existing) {
@@ -162,7 +162,7 @@ export class LpiFormService {
 
   findOne(noVessels: string) {
     return this.vesselRepository.findOne({
-      where: { noVessels },
+      where: { vesselNo: noVessels },
       relations: {
         empunyaVesel: true,
         nakhoda: true,
@@ -182,7 +182,7 @@ export class LpiFormService {
 
 
     async update(noVessels: string, dto: UpdateVesselInspectionDto): Promise<VesselInspection> {
-      const existing = await this.vesselRepository.findOne({ where: { noVessels } });
+      const existing = await this.vesselRepository.findOne({ where: { vesselNo: noVessels } });
       
       if (!existing) {
         throw new NotFoundException(`Vessel with id ${noVessels} not found`);
@@ -194,7 +194,7 @@ export class LpiFormService {
     }
 
     async softDelete(noVessels: string): Promise<void> {
-    const vessel = await this.vesselRepository.findOneBy({ noVessels });
+    const vessel = await this.vesselRepository.findOneBy({ vesselNo: noVessels });
     if (vessel) {
       await this.vesselRepository.softRemove(vessel);
     }

@@ -21,7 +21,7 @@ export class SearchService {
   searchVesselNo(query: string, page: number, limit: number) {
     return this.searchWithPagination(
       this.vesselRepository,
-      ['noVessels'],
+      ['vesselNo'],
       query,
       { page, limit }
     );

@@ -6,6 +6,7 @@ import {
   UploadedFiles,
   Body,
   Req,
+  Res,
   Param,
 } from '@nestjs/common';
 import { AnyFilesInterceptor, FilesInterceptor } from '@nestjs/platform-express';
@@ -24,7 +25,7 @@ export class LpiFormController {
   )
   async create(
     @Body() body: any,
-    @Req() req,
+    @Req() req, @Res() res
   ) {
 
     const uploaded = (req.files || []).filter((f) =>
@@ -41,12 +42,12 @@ export class LpiFormController {
       })),
     };
 
-    return this.lpiFormService.submitForm(body, uploaded);
+    return this.lpiFormService.submitForm(body, uploaded, res);
   }
 
   // @UseGuards(AuthGuard('jwt'))
-    @Get(':id')
-    findOne (@Param('id') noVessels: string) {
-      return this.lpiFormService.findOne(noVessels)
+    @Get(':formId')
+    findOne(@Param('formId') formId: string) {
+      return this.lpiFormService.findOne(formId)
     }
 }

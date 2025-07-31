@@ -5,6 +5,7 @@ import { validate } from "class-validator";
 import { VesselInspection } from "src/shared/entities/vessel-inspection.entity";
 import { Repository } from "typeorm";
 import { CreateLpiVesselInspectionDto } from "./dto/create-lpi-vessel-inspection.dto";
+import { LpiForm } from './entities/lpi-form.entity';
 
 @Injectable()
 export class VesselInspectionService {
@@ -13,31 +14,35 @@ export class VesselInspectionService {
     private readonly vesselRepo: Repository<VesselInspection>,
   ) {}
 
-  async fillForm(data: { payload: any }) {
+  async fillForm(data: { payload: any, formId:string }, lpiForm : LpiForm) {
     let parsedPayload: any;
     try {
       parsedPayload = JSON.parse(data.payload);
     } catch {
       throw new BadRequestException('Invalid JSON in payload field');
     }
+    // console.log(parsedPayload.formId = );
 
     const dtoInstance = plainToInstance(CreateLpiVesselInspectionDto, parsedPayload);
     const errors = await validate(dtoInstance);
     if (errors.length > 0) throw new BadRequestException(errors);
 
     const existing = await this.vesselRepo.findOne({
-      where: { noVessels: dtoInstance.noVessels },
+      where: { vesselNo: dtoInstance.vesselNo },
     });
-    if (existing) throw new ConflictException('noVessels already exists');
+    if (existing) throw new ConflictException('vesselNo already exists');
 
-    const newRecord = this.vesselRepo.create(dtoInstance);
+    dtoInstance
+    const newRecord = this.vesselRepo.create({...dtoInstance, lpiForm: lpiForm});
     const saved = await this.vesselRepo.save(newRecord);
-    return saved.noVessels;
+    return saved.vesselNo;
   }
+
+  
 
   async getVesselInspection(noVessels: string) {
     const inspection = await this.vesselRepo.findOne({
-      where: { noVessels },
+      where: { vesselNo: noVessels },
       relations: {
         empunyaVesel: true,
         nakhoda: true,
