@@ -29,9 +29,8 @@ export class LpiFormService {
     private readonly lpiFormRepository: Repository<LpiForm>,
 
     private readonly imageService: LpiImageService,
-    private readonly vesselInspectionService: VesselInspectionService,
-  ) // @InjectRepository(VesselInspection)
-  // private vesselRepository: Repository<VesselInspection>,
+    private readonly vesselInspectionService: VesselInspectionService, // @InjectRepository(VesselInspection)
+  ) // private vesselRepository: Repository<VesselInspection>,
 
   // @InjectRepository(LpiFormImage)
   // private readonly lpiFormImageRepo: Repository<LpiFormImage>,
@@ -164,5 +163,28 @@ export class LpiFormService {
       })),
       vesselInspection,
     }
+  }
+
+  async updateForm (formId, body: any, files: Express.Multer.File[], res: any) {
+    const lpiForm = await this.lpiFormRepository.findOne({
+      where: { id: formId },
+      relations: ['images', 'vesselInspection'],
+    })
+    if (!lpiForm) throw new NotFoundException('LPI Form not found')
+
+    if (!lpiForm.vesselInspection)
+      throw new NotFoundException('Vessel Inspection not found')
+    const vesselInspection =
+      await this.vesselInspectionService.getVesselInspection(
+        lpiForm.vesselInspection.vesselNo,
+      )
+    const form = this.lpiFormRepository.create({
+      id: formId,
+      user: body.user,
+    })
+    const updatedLpiForm = await this.lpiFormRepository.save(form)
+    await this.imageService.handleImageUploads(files, updatedLpiForm)
+    const noVessels = await this.vesselInspectionService.updateForm(body, updatedLpiForm)
+    return this.getCombinedLpiData(body.formId, noVessels, res)
   }
 }
