@@ -22,8 +22,7 @@ import { PeralatanTambahanUtama } from '../shared/entities/embedded/peralatan-ta
 import { PeralatanTambahanTambahan } from '../shared/entities/embedded/peralatan-tambahan-tambahan.entity';
 import { PukatTunda } from 'src/shared/entities/embedded/pukat-tunda.entity'
 import { ButiranEnjinDto } from './dto/embedded/butiran-enjin.dto';
-import { EmpunyaVeselDto } from '../lpi-form-old/dto/embedded/empunya-vesel.dto';
-
+import { EmpunyaVeselDto } from './dto/embedded'
 @Injectable()
 export class VesselInspectionService {
   constructor (
