@@ -125,6 +125,40 @@ export class UsersService {
     }
   }
 
+  async getUsersByRoleLevelAndId (
+    level: number,
+    id : string,
+    page = 1,
+    pageSize = 10,
+  ): Promise<{
+    data: User[]
+    total: number
+    page: number
+    pageSize: number
+    totalPages: number
+  }> {
+    const skip = (page - 1) * pageSize
+
+    const [data, total] = await this.userRepo
+      .createQueryBuilder('user')
+      .leftJoinAndSelect('user.roles', 'role')
+      .where('role.level = :level', { level })
+      .andWhere('user.id = :id', { id })
+      .skip(skip)
+      .take(pageSize)
+      .getManyAndCount()
+
+    const totalPages = Math.ceil(total / pageSize)
+
+    return {
+      data,
+      total,
+      page,
+      pageSize,
+      totalPages,
+    }
+  }
+
   async getUsersByRoleLevelAndUsername (
     level: number,
     username: string,
