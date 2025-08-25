@@ -7,4 +7,7 @@ export class LoginDto {
 
   @ApiPropertyOptional({ default: "abcd" })
   password: string;
+
+  @ApiPropertyOptional({ default: "true" })
+  sso: string;
 }

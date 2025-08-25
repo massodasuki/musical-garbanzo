@@ -14,13 +14,21 @@ export class AuthController {
   
   @Post('login')
     @ApiQuery({ name: 'username', required: true, description: 'ID Pegawai' })
-    @ApiQuery({ name: 'password', required: true })
+    @ApiQuery({ name: 'password', required: false })
+    @ApiQuery({ name: 'sso', required: false })
     @ApiOkResponse({
       description: 'Returns JWT access token after successful login',
       type: LoginResponseDto,
     })
   async login(@Body() dto: LoginDto, @Res() res: Response) {
-    const user = await this.authService.validateUser(dto.username, dto.password);
+    let user;
+    if(dto.sso != null ) {
+      user = await this.authService.validateUsername(dto.username);
+    }
+    if(dto.password != null) {
+      user = await this.authService.validateUser(dto.username, dto.password);
+    }
+    
     return this.authService.loginWithProfile(user, res);
   }
 

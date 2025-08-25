@@ -21,8 +21,16 @@ export class AuthService {
     }
 
     throw new UnauthorizedException('Invalid credentials');
+  }
 
-    
+  async validateUsername(username: string) {
+    const user = await this.usersService.findByUsername(username);
+    if (user) {
+      const { ...result } = user;
+      return result;
+    }
+
+    throw new UnauthorizedException('User not found');
   }
 
   getTokens(userId: number, username: string) {
