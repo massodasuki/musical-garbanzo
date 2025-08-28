@@ -49,14 +49,14 @@ export class Appointment {
   @Column({
     type: 'enum',
     enum: StatusKehadiran,
-    default: StatusKehadiran.POSTPONE,
+    nullable: true,
   })
   kehadiran: StatusKehadiran;
 
   @Column({
     type: 'enum',
     enum: Dihadiri,
-    default: Dihadiri.OWNER,
+    nullable: true,
   })
   dihadiri: Dihadiri;
 

@@ -49,6 +49,6 @@ export class Vessels {
   pentadbirHartas: ProfilePentadbirHartas;
 
   @OneToOne(() => Appointment, janjiTemu => janjiTemu.vessel, { cascade: true })
-  appoinment: Appointment;
+  appointment: Appointment;
 
 }
