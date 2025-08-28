@@ -3,8 +3,8 @@ import { VesselInspection } from '../vessel-inspection.entity';
 
 @Entity('penandaan_vessels')
 export class PenandaanVesel {
-  @PrimaryGeneratedColumn({ type: 'bigint', unsigned: true })
-  id: number;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
   @Column({ name: 'ditebuk' }) ditebuk: boolean;
   @Column({ name: 'dicat_terang' }) dicatTerang: boolean;

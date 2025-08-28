@@ -9,11 +9,12 @@ import {
 import { User } from './user.entity';
 import { CodeMaster } from './code-master.entity';
 import { profile } from 'console';
+import { ProfilePentadbirHartas } from 'src/vessels/entities/profile-pentadbir-hartas.entity';
 
 @Entity('profile_users')
 export class ProfileUser {
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
   @OneToOne(() => User, user => user.id)
   @JoinColumn({ name: 'user_id' })
@@ -47,4 +48,7 @@ export class ProfileUser {
 
   @Column({ nullable: true })
   email: string;
+
+  @OneToOne(() => ProfilePentadbirHartas, pentadbirHartas => pentadbirHartas.vesselOwner, { cascade: true })
+  pentadbirHartas: ProfilePentadbirHartas;
 }

@@ -9,8 +9,8 @@ import {
 
 @Entity('code_masters')
 export class CodeMaster {
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
   @Column()
   code: string;

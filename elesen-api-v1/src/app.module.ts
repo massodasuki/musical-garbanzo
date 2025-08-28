@@ -46,6 +46,10 @@ import { Entities } from './users/entities/entities.entity';
 import { LpiForm } from './lpi-form/entities/lpi-form.entity';
 import { LpiFormImage } from './lpi-form/entities/lpi-form-image.entity';
 import { MulterModule } from '@nestjs/platform-express';
+import { ProfilePentadbirHartas } from './vessels/entities/profile-pentadbir-hartas.entity';
+import { AppointmentModule } from './appointment/appointment.module';
+import { Appointment } from './appointment/entities/appointment.entity';
+
 
 
 @Module({
@@ -84,6 +88,7 @@ import { MulterModule } from '@nestjs/platform-express';
                   CodeMaster,
                   Role,
                   Entities,
+                  ProfilePentadbirHartas,
                   Vessels,
                   VesselInspection,
                   LpiForm,
@@ -100,8 +105,10 @@ import { MulterModule } from '@nestjs/platform-express';
                   PeralatanTambahanTambahan, 
                   KeadaanVesel,
                   Search,
-                  DeviceRegistration
+                  DeviceRegistration,
+                  Appointment
                 ]}),
+  AppointmentModule,
               ],
   controllers: [AppController],
   providers: [AppService, AuthService],

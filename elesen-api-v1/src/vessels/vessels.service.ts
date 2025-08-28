@@ -1,16 +1,20 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Vessels } from './entities/vessel.entity';
 import { CreateVesselDto } from './dto/create-vessel.dto';
 import { UpdateVesselDto } from './dto/update-vessel.dto';
 import { PaginationQueryDto } from '../shared/dto/pagination-query.dto';
+import { ProfilePentadbirHartas } from './entities/profile-pentadbir-hartas.entity';
 
 @Injectable()
 export class VesselsService {
   constructor(
     @InjectRepository(Vessels)
     private readonly vesselRepository: Repository<Vessels>,
+
+    @InjectRepository(ProfilePentadbirHartas)
+    private readonly pentadbirHartasRepository: Repository<ProfilePentadbirHartas>,
   ) {}
 
   create(dto: CreateVesselDto) {
@@ -37,6 +41,35 @@ export class VesselsService {
 
   findOne(id: string) {
     return this.vesselRepository.findOneBy({ id });
+  }
+
+  async getVesselDetails(vesselNo: string) {
+    // const data = await this.vesselRepository.findOne({
+    //   where: { vessel_no: vesselNo },
+    //   relations: [
+    //     'user',
+    //     'user.profilePentadbirHarta',
+    //     'user.entity',
+    //   ],
+    // });
+
+    const data = await this.vesselRepository.findOne({
+      where: { id: vesselNo },
+      relations: ['pentadbirHartas'],
+    })
+
+    let pentadbirId = data?.pentadbirHartas.id;
+    const pentadbirHartas = await this.pentadbirHartasRepository.findOne({
+      where: { id: pentadbirId },
+      relations: ['user', 'vesselOwner'],
+    })
+
+    console.log(pentadbirHartas);
+    if (!data) {
+      throw new NotFoundException(`No data found for vessel_no ${vesselNo}`);
+    }
+
+    return data;
   }
 
   async update(id: string, dto: UpdateVesselDto) {

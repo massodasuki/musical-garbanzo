@@ -26,6 +26,11 @@ export class VesselsController {
     return this.vesselsService.findAll(paginationQuery);
   }
 
+  @Get('details/:id')
+  findOneDetails(@Param('id') id: string) {
+    return this.vesselsService.getVesselDetails(id);
+  }
+
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.vesselsService.findOne(id);

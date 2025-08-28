@@ -15,6 +15,7 @@ import { ProfileUser } from './profile-user.entity';
 import { profile } from 'console';
 import { Role } from './role.entity';
 import { Entities } from './entities.entity';
+import { ProfilePentadbirHartas } from 'src/vessels/entities/profile-pentadbir-hartas.entity';
 @Entity('users')
 export class  User {
   @PrimaryGeneratedColumn('uuid')
@@ -116,6 +117,9 @@ export class  User {
 
   @OneToOne(() => ProfileUser, profile => profile.user)
   profile: ProfileUser;
+
+  @OneToOne(() => ProfilePentadbirHartas, pentadbirHartas => pentadbirHartas.user)
+  pentadbirHartas: ProfilePentadbirHartas;
 
   @ManyToMany(() => Role, role => role.users)
   @JoinTable({
