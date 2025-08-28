@@ -1,8 +1,10 @@
 import { IsDate, IsEnum, IsOptional, IsUUID } from 'class-validator';
 import { StatusJanjiTemu, StatusLaporan, StatusKehadiran, Dihadiri } from '../entities/appointment.entity';
+import { Type } from 'class-transformer';
 
 export class CreateAppointmentDto {
   @IsDate()
+  @Type(() => Date)
   tarikhPemeriksaan: Date;
 
   @IsOptional()
@@ -22,18 +24,5 @@ export class CreateAppointmentDto {
   dihadiri?: Dihadiri;
 
   @IsOptional()
-  @IsUUID()
   vesselId?: string;
-
-  @IsOptional()
-  @IsUUID()
-  userId?: string;
-
-  @IsOptional()
-  @IsUUID()
-  staffId?: string;
-
-  @IsOptional()
-  @IsUUID()
-  serviceId?: string;
 }

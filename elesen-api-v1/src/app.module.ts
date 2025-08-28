@@ -67,6 +67,7 @@ import { Appointment } from './appointment/entities/appointment.entity';
   PushNotificationModule,
   DigitalIdModule,
   VesselsModule,
+   AppointmentModule,
 
   ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'uploads'),
@@ -80,9 +81,9 @@ import { Appointment } from './appointment/entities/appointment.entity';
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_DATABASE,       // ⚠️ your database name
-      // synchronize: true,          // ✅ auto create tables (turn off in prod)
+      synchronize: true,         // ❌ DISABLED: Use migrations instead
       logging: true,
-      migrationsRun: true,
+      // migrationsRun: true,
       entities: [ User,
                   ProfileUser,
                   CodeMaster,
@@ -108,7 +109,7 @@ import { Appointment } from './appointment/entities/appointment.entity';
                   DeviceRegistration,
                   Appointment
                 ]}),
-  AppointmentModule,
+ 
               ],
   controllers: [AppController],
   providers: [AppService, AuthService],

@@ -22,16 +22,16 @@ export class DeviceRegistrationController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.deviceRegistrationService.findOne(+id);
+    return this.deviceRegistrationService.findOne(id);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateDeviceRegistrationDto: UpdateDeviceRegistrationDto) {
-    return this.deviceRegistrationService.update(+id, updateDeviceRegistrationDto);
+    return this.deviceRegistrationService.update(id, updateDeviceRegistrationDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.deviceRegistrationService.remove(+id);
+    return this.deviceRegistrationService.remove(id);
   }
 }

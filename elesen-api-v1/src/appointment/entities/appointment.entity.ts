@@ -24,12 +24,12 @@ export enum Dihadiri {
   REPRESENTATIVE = 'Wakil'
 }
 
-@Entity()
+@Entity('appointment')
 export class Appointment {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column()
+  @Column({ name: 'tarikh_pemeriksaan' })
   tarikhPemeriksaan: Date;
 
   @Column({
@@ -39,7 +39,7 @@ export class Appointment {
   })
   status: StatusJanjiTemu;
 
-  @Column({
+  @Column({ name: 'penyediaan_laporan',
     type: 'enum',
     enum: StatusLaporan,
     default: StatusLaporan.PENDING,

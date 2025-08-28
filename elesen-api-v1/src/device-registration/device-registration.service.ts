@@ -40,24 +40,24 @@ export class DeviceRegistrationService {
     }
   
 
-  async findOne(id: number): Promise<DeviceRegistration> {
-    const token = await this.deviceRepository.findOne({ where: { id } });
-    if (!token) {
-      throw new NotFoundException(`DeviceToken with ID ${id} not found`);
+  async findOne(id: string): Promise<DeviceRegistration> {
+    const deviceRegistration = await this.deviceRepository.findOne({ where: { id } });
+    if (!deviceRegistration) {
+      throw new NotFoundException(`DeviceRegistration with ID ${id} not found`);
     }
-    return token;
+    return deviceRegistration;
   }
 
-  async update(id: number, dto: UpdateDeviceRegistrationDto): Promise<DeviceRegistration> {
-    const token = await this.findOne(id);
-    const updated = this.deviceRepository.merge(token, dto);
+  async update(id: string, dto: UpdateDeviceRegistrationDto): Promise<DeviceRegistration> {
+    const deviceRegistration = await this.findOne(id);
+    const updated = this.deviceRepository.merge(deviceRegistration, dto);
     return this.deviceRepository.save(updated);
   }
 
-  async remove(id: number): Promise<void> {
+  async remove(id: string): Promise<void> {
     const result = await this.deviceRepository.delete(id);
     if (result.affected === 0) {
-      throw new NotFoundException(`DeviceToken with ID ${id} not found`);
+      throw new NotFoundException(`DeviceRegistration with ID ${id} not found`);
     }
   }
 }

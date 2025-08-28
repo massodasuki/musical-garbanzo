@@ -1,7 +1,7 @@
 import { Entities } from 'src/users/entities/entities.entity';
 import { Entity, PrimaryGeneratedColumn, Column, JoinColumn, ManyToOne, OneToOne } from 'typeorm';
 import { ProfilePentadbirHartas } from './profile-pentadbir-hartas.entity';
-import { Appointment } from '../../appointment/entities/appointment.entity';
+import { Appointment } from 'src/appointment/entities/appointment.entity';
 
 @Entity('vessels')
 export class Vessels {
@@ -48,7 +48,7 @@ export class Vessels {
   @OneToOne(() => ProfilePentadbirHartas, pentadbirHartas => pentadbirHartas.vessel, { cascade: true })
   pentadbirHartas: ProfilePentadbirHartas;
 
-  @OneToOne(() => Appointment, appointment => appointment.vessel, { cascade: true })
-  appointment: Appointment;
-  
+  @OneToOne(() => Appointment, janjiTemu => janjiTemu.vessel, { cascade: true })
+  appoinment: Appointment;
+
 }

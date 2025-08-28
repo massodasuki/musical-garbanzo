@@ -26,6 +26,7 @@ export class VesselsService {
   const { limit = 10, page = 1 } = paginationQuery;
 
   const [data, total] = await this.vesselRepository.findAndCount({
+    relations: ['appointment'],
       take: limit,
       skip: (page - 1) * limit
     });
