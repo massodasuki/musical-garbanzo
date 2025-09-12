@@ -93,6 +93,38 @@ export class UsersService {
   //     .getMany()
   // }
 
+  async getUsersWhereEntityIdNull (
+    // level: number,
+    page = 1,
+    pageSize = 10,
+  ): Promise<{
+    data: User[]
+    total: number
+    page: number
+    pageSize: number
+    totalPages: number
+  }> {
+    const skip = (page - 1) * pageSize
+
+    const [data, total] = await this.userRepo
+      .createQueryBuilder('user')
+      .leftJoinAndSelect('user.roles', 'role')
+      .where('user.entity_id = null')
+      .skip(skip)
+      .take(pageSize)
+      .getManyAndCount()
+
+    const totalPages = Math.ceil(total / pageSize)
+
+    return {
+      data,
+      total,
+      page,
+      pageSize,
+      totalPages,
+    }
+  }
+
   async getUsersByRoleLevel (
     level: number,
     page = 1,

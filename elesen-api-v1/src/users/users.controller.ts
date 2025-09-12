@@ -29,8 +29,7 @@ export class UsersController {
   })
   @Get('nelayan')
   async findAllNelayan (@Query('page') page = 1, @Query('limit') limit = 10) {
-    let nelayanLevel = 5;
-    return this.usersService.getUsersByRoleLevel(nelayanLevel, page, limit) // 5 = nelayan KIV
+    return this.usersService.getUsersWhereEntityIdNull(page, limit)
   }
 
   // PROFIL BY NELAYAN API
