@@ -225,6 +225,37 @@ export class UsersService {
     }
   }
 
+  async getMinimalUsersWhereEntityIdNull (
+    page = 1,
+    pageSize = 10,
+  ): Promise<{
+    data: { name: string; username: string; start_date: Date; end_date: Date; district: string }[]
+    total: number
+    page: number
+    pageSize: number
+    totalPages: number
+  }> {
+    const skip = (page - 1) * pageSize
+
+    const [data, total] = await this.userRepo
+      .createQueryBuilder('user')
+      .select(['user.name', 'user.username', 'user.start_date', 'user.end_date', 'user.district'])
+      .where('user.entity_id = null')
+      .skip(skip)
+      .take(pageSize)
+      .getManyAndCount()
+
+    const totalPages = Math.ceil(total / pageSize)
+
+    return {
+      data,
+      total,
+      page,
+      pageSize,
+      totalPages,
+    }
+  }
+
   // Get user detail by vessels
 
   async getUsersByVessel (vesselNo: string): Promise<User[]> {

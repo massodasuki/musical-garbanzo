@@ -12,6 +12,7 @@ import {
 import { UsersService } from './users.service'
 import { CreateUserDto } from './dto/create-user.dto'
 import { UpdateUserDto } from './dto/update-user.dto'
+import { MinimalUserDto } from './dto/minimal-user.dto'
 import { UUID } from 'crypto'
 import { ApiOperation, ApiParam } from '@nestjs/swagger'
 import { PaginationQueryDto } from 'src/shared/dto/pagination-query.dto'
@@ -30,6 +31,15 @@ export class UsersController {
   @Get('nelayan')
   async findAllNelayan (@Query('page') page = 1, @Query('limit') limit = 10) {
     return this.usersService.getUsersWhereEntityIdNull(page, limit)
+  }
+
+  @ApiOperation({
+    summary: 'Get minimal nelayan data',
+    description: 'Returns minimal user data for nelayan with pagination.',
+  })
+  @Get('nelayan-minimal')
+  async findAllNelayanMinimal (@Query('page') page = 1, @Query('limit') limit = 10) {
+    return this.usersService.getMinimalUsersWhereEntityIdNull(page, limit)
   }
 
   // PROFIL BY NELAYAN API
