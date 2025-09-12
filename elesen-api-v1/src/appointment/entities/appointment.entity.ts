@@ -60,7 +60,7 @@ export class Appointment {
   })
   dihadiri: Dihadiri;
 
-  @ManyToOne(() => Vessels, { nullable: true })
+  @OneToOne(() => Vessels, { nullable: true })
   @JoinColumn({ name: 'vessel_id' })
   vessel: Vessels;
 }

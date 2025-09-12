@@ -6,6 +6,7 @@ import { CreateVesselDto } from './dto/create-vessel.dto';
 import { UpdateVesselDto } from './dto/update-vessel.dto';
 import { PaginationQueryDto } from '../shared/dto/pagination-query.dto';
 import { ProfilePentadbirHartas } from './entities/profile-pentadbir-hartas.entity';
+import { VesselInspection } from '../shared/entities/vessel-inspection.entity';
 
 @Injectable()
 export class VesselsService {
@@ -15,6 +16,9 @@ export class VesselsService {
 
     @InjectRepository(ProfilePentadbirHartas)
     private readonly pentadbirHartasRepository: Repository<ProfilePentadbirHartas>,
+
+    @InjectRepository(VesselInspection)
+    private readonly vesselInspectionRepository: Repository<VesselInspection>,
   ) {}
 
   create(dto: CreateVesselDto) {
@@ -23,13 +27,13 @@ export class VesselsService {
   }
 
    async findAll(paginationQuery: PaginationQueryDto) {
-   const { limit = 10, page = 1 } = paginationQuery;
+    const { limit = 10, page = 1 } = paginationQuery;
 
-   const [data, total] = await this.vesselRepository.findAndCount({
-     relations: ['appointment'],
-       take: limit,
-       skip: (page - 1) * limit
-     });
+    const [data, total] = await this.vesselRepository.findAndCount({
+      relations: ['appointment', 'pentadbirHartas', 'pemeriksaanVesel'],
+      take: limit,
+      skip: (page - 1) * limit
+    });
 
     return {
       data,
@@ -55,7 +59,7 @@ export class VesselsService {
     // });
 
     const data = await this.vesselRepository.findOne({
-      where: { id: vesselNo },
+      where: { vessel_no: vesselNo },
       relations: ['pentadbirHartas'],
     })
 
@@ -70,7 +74,7 @@ export class VesselsService {
       throw new NotFoundException(`No data found for vessel_no ${vesselNo}`);
     }
 
-    return data;
+    return { vessel: data, pentadbirHartas };
   }
 
   async update(id: string, dto: UpdateVesselDto) {

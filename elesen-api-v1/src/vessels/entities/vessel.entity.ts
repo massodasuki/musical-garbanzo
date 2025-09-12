@@ -1,7 +1,8 @@
 import { Entities } from 'src/users/entities/entities.entity';
-import { Entity, PrimaryGeneratedColumn, Column, JoinColumn, ManyToOne, OneToOne } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, JoinColumn, ManyToOne, OneToOne, Unique } from 'typeorm';
 import { ProfilePentadbirHartas } from './profile-pentadbir-hartas.entity';
 import { Appointment } from 'src/appointment/entities/appointment.entity';
+import { VesselInspection } from '../../shared/entities/vessel-inspection.entity';
 
 @Entity('vessels')
 export class Vessels {
@@ -50,5 +51,8 @@ export class Vessels {
 
   @OneToOne(() => Appointment, janjiTemu => janjiTemu.vessel, { cascade: true })
   appointment: Appointment;
+
+  @OneToOne(() => VesselInspection, vi => vi.vessel, { cascade: true })
+  pemeriksaanVesel: VesselInspection;
 
 }
