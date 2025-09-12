@@ -228,6 +228,7 @@ export class UsersService {
   async getMinimalUsersWhereEntityIdNull (
     page = 1,
     pageSize = 10,
+    lesen?: string,
   ): Promise<{
     data: { name: string; username: string; start_date: Date; end_date: Date; district: string }[]
     total: number
@@ -237,10 +238,24 @@ export class UsersService {
   }> {
     const skip = (page - 1) * pageSize
 
-    const [data, total] = await this.userRepo
+    let roleName: string | undefined
+    if (lesen === 'MARIN') {
+      roleName = 'PELESEN (LAUT)'
+    } else if (lesen === 'DARAT') {
+      roleName = 'PELESEN (DARAT)'
+    }
+
+    let query = this.userRepo
       .createQueryBuilder('user')
+      .leftJoin('user.roles', 'role')
       .select(['user.name', 'user.username', 'user.start_date', 'user.end_date', 'user.district'])
       .where('user.entity_id = null')
+
+    if (roleName) {
+      query = query.andWhere('role.name = :roleName', { roleName })
+    }
+
+    const [data, total] = await query
       .skip(skip)
       .take(pageSize)
       .getManyAndCount()

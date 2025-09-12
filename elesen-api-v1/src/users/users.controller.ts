@@ -35,11 +35,15 @@ export class UsersController {
 
   @ApiOperation({
     summary: 'Get minimal nelayan data',
-    description: 'Returns minimal user data for nelayan with pagination.',
+    description: 'Returns minimal user data for nelayan with pagination and optional lesen filter.',
   })
   @Get('nelayan-minimal')
-  async findAllNelayanMinimal (@Query('page') page = 1, @Query('limit') limit = 10) {
-    return this.usersService.getMinimalUsersWhereEntityIdNull(page, limit)
+  async findAllNelayanMinimal (
+    @Query('page') page = 1,
+    @Query('limit') limit = 10,
+    @Query('lesen') lesen?: string,
+  ) {
+    return this.usersService.getMinimalUsersWhereEntityIdNull(page, limit, lesen)
   }
 
   // PROFIL BY NELAYAN API
