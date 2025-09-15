@@ -49,7 +49,12 @@ import { MulterModule } from '@nestjs/platform-express';
 import { ProfilePentadbirHartas } from './vessels/entities/profile-pentadbir-hartas.entity';
 import { AppointmentModule } from './appointment/appointment.module';
 import { Appointment } from './appointment/entities/appointment.entity';
-
+import { FinancialModule } from './financial/financial.module';
+import { Financial } from './financial/entities/financial.entity';
+import { FishingActivityModule } from './fishing-activity/fishing-activity.module';
+import { FishingActivity } from './fishing-activity/entities/fishing-activity.entity';
+import { PengkalanModule } from './pengkalan/pengkalan.module';
+import { Pengkalan } from './pengkalan/entities/pengkalan.entity';
 
 
 @Module({
@@ -67,7 +72,10 @@ import { Appointment } from './appointment/entities/appointment.entity';
   PushNotificationModule,
   DigitalIdModule,
   VesselsModule,
-   AppointmentModule,
+  AppointmentModule,
+  FishingActivityModule,
+  PengkalanModule,
+  FinancialModule,
 
   ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', 'uploads'),
@@ -81,9 +89,10 @@ import { Appointment } from './appointment/entities/appointment.entity';
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_DATABASE,       // ⚠️ your database name
-      synchronize: true,         // ❌ DISABLED: Use migrations instead
+      synchronize: false,         // Use migrations instead
       logging: true,
-      // migrationsRun: true,
+      migrationsRun: true,
+      migrations: ['dist/migrations/*.js'],
       entities: [ User,
                   ProfileUser,
                   CodeMaster,
@@ -107,8 +116,12 @@ import { Appointment } from './appointment/entities/appointment.entity';
                   KeadaanVesel,
                   Search,
                   DeviceRegistration,
-                  Appointment
+                  Appointment,
+                  Financial,
+                  FishingActivity,
+                  Pengkalan
                 ]}),
+  
  
               ],
   controllers: [AppController],

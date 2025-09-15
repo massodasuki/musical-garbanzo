@@ -230,7 +230,7 @@ export class UsersService {
     pageSize = 10,
     lesen?: string,
   ): Promise<{
-    data: { name: string; username: string; start_date: Date; end_date: Date; district: string }[]
+    data: { id: string; name: string; username: string; start_date: Date; end_date: Date; district: string }[]
     total: number
     page: number
     pageSize: number
@@ -248,7 +248,7 @@ export class UsersService {
     let query = this.userRepo
       .createQueryBuilder('user')
       .leftJoin('user.roles', 'role')
-      .select(['user.name', 'user.username', 'user.start_date', 'user.end_date', 'user.district'])
+      .select(['user.id', 'user.name', 'user.username', 'user.start_date', 'user.end_date', 'user.district'])
       .where('user.entity_id = null')
 
     if (roleName) {

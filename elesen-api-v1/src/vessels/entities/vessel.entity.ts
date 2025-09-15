@@ -52,7 +52,7 @@ export class Vessels {
   @OneToOne(() => Appointment, janjiTemu => janjiTemu.vessel, { cascade: true })
   appointment: Appointment;
 
-  @OneToOne(() => VesselInspection, vi => vi.vessel, { cascade: true })
+  @OneToOne(() => VesselInspection, vi => vi.vessel)
   pemeriksaanVesel: VesselInspection;
 
 }
