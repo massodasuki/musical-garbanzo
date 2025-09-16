@@ -12,7 +12,6 @@ import {
   ManyToOne
 } from 'typeorm';
 import { ProfileUser } from './profile-user.entity';
-import { profile } from 'console';
 import { Role } from './role.entity';
 import { Entities } from './entities.entity';
 import { ProfilePentadbirHartas } from 'src/vessels/entities/profile-pentadbir-hartas.entity';

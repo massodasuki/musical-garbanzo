@@ -110,7 +110,7 @@ export class UsersService {
     const [data, total] = await this.userRepo
       .createQueryBuilder('user')
       .leftJoinAndSelect('user.roles', 'role')
-      .where('user.entity_id = null')
+      .where('user.entity_id IS NULL')
       .skip(skip)
       .take(pageSize)
       .getManyAndCount()
