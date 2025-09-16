@@ -68,5 +68,6 @@ export const AppDataSource = new DataSource({
     Pengkalan,
   ],
   migrations: ['src/migrations/*.ts'],
+  migrationsTableName: 'typeorm_migrations',
   subscribers: [],
 });
