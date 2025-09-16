@@ -8,13 +8,14 @@ import {
   UpdateDateColumn,
   DeleteDateColumn,
   OneToMany,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
 import { User } from './user.entity';
 import { Vessels } from '../../vessels/entities/vessel.entity';
 
 @Entity('entities')
 export class Entities {
-  @PrimaryColumn('char', { length: 36 })
+  @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column('char', { length: 36, nullable: true })

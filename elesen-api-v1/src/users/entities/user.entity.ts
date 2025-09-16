@@ -6,6 +6,7 @@ import {
   UpdateDateColumn,
   DeleteDateColumn,
   OneToOne,
+  OneToMany,
   JoinTable,
   ManyToMany,
   JoinColumn,
@@ -16,6 +17,8 @@ import { Role } from './role.entity';
 import { Entities } from './entities.entity';
 import { ProfilePentadbirHartas } from 'src/vessels/entities/profile-pentadbir-hartas.entity';
 import { Financial } from 'src/financial/entities/financial.entity';
+import { FishingActivity } from 'src/fishing-activity/entities/fishing-activity.entity';
+import { Pengkalan } from 'src/pengkalan/entities/pengkalan.entity';
 @Entity('users')
 export class  User {
   @PrimaryGeneratedColumn('uuid')
@@ -118,6 +121,12 @@ export class  User {
   // extra
   @OneToOne(() => Financial, financial => financial.user)
   financial: Financial;
+
+  @OneToMany(() => FishingActivity, fishingActivity => fishingActivity.user)
+  fishingActivity: FishingActivity;
+
+  @OneToMany(() => Pengkalan, pengkalan => pengkalan.user)
+  pengkalan: Pengkalan;
 
   @OneToOne(() => ProfileUser, profile => profile.user)
   profile: ProfileUser;

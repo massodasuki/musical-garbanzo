@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, OneToOne } from 'typeorm';
 import { User } from '../../users/entities/user.entity';
 
 @Entity('fishing_activity')
@@ -6,8 +6,9 @@ export class FishingActivity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ type: 'varchar', length: 255 })
-  user_id: string;
+  @OneToOne(() => User, user => user.id)
+  @JoinColumn({ name: 'user_id' })
+  user: User;
 
   @Column({ type: 'boolean', default: false })
   is_main_income: boolean;
@@ -32,8 +33,4 @@ export class FishingActivity {
 
   @Column({ type: 'decimal', precision: 15, scale: 2, nullable: true })
   monthly_income_estimate: number;
-
-  @ManyToOne(() => User, { onDelete: 'CASCADE' })
-  @JoinColumn({ name: 'user_id' })
-  user: User;
 }

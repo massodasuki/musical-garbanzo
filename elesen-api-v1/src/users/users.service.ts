@@ -45,6 +45,8 @@ export class UsersService {
       where: { id },
       relations: [
         'financial',
+        'fishingActivity',
+        'pengkalan',
         'profile',
         'profile.gender',
         'profile.race',

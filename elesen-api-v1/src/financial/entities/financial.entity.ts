@@ -6,7 +6,7 @@ export class Financial {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @OneToOne(() => User, user => user.financial)
+  @OneToOne(() => User, user => user.id)
   @JoinColumn({ name: 'user_id' })
   user: User;
 

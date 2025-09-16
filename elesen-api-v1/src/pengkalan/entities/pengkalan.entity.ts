@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, OneToOne } from 'typeorm';
 import { User } from '../../users/entities/user.entity';
 
 @Entity('pengkalan')
@@ -6,8 +6,9 @@ export class Pengkalan {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({ type: 'varchar', length: 255 })
-  user_id: string;
+  @OneToOne(() => User, user => user.id)
+  @JoinColumn({ name: 'user_id' })
+  user: User;
 
   @Column({ type: 'varchar', length: 150, nullable: true })
   name: string;
@@ -33,7 +34,4 @@ export class Pengkalan {
   @Column({ type: 'varchar', length: 100, nullable: true })
   additional_equipment: string;
 
-  @ManyToOne(() => User, { onDelete: 'CASCADE' })
-  @JoinColumn({ name: 'user_id' })
-  user: User;
 }
