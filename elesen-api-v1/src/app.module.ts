@@ -24,7 +24,7 @@ import { KeadaanVesel } from './shared/entities/embedded/keadaan-vesel.entity';
 import { LpiFormModule } from './lpi-form/lpi-form.module';
 
 
-//Base 
+//Base
 import { AuthService } from './auth/auth.service';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
@@ -39,7 +39,7 @@ import { PushNotificationModule } from './push-notification/push-notification.mo
 import { DigitalIdModule } from './digital-id/digital-id.module';
 import { VesselsModule } from './vessels/vessels.module';
 import { Vessels } from './vessels/entities/vessel.entity';
-import { ProfileUser } from './users/entities/profile-user.entity'; 
+import { ProfileUser } from './users/entities/profile-user.entity';
 import { CodeMaster } from './users/entities/code-master.entity';
 import { Role } from './users/entities/role.entity';
 import { Entities } from './users/entities/entities.entity';
@@ -62,8 +62,8 @@ import { Pengkalan } from './pengkalan/entities/pengkalan.entity';
       MulterModule.register({
       dest: './uploads', // Or any destination
     }),
-  AuthModule, 
-  UsersModule, 
+  AuthModule,
+  UsersModule,
   JwtModule,
   LpiFormModule,
   DeviceRegistrationModule,
@@ -103,16 +103,16 @@ import { Pengkalan } from './pengkalan/entities/pengkalan.entity';
                   VesselInspection,
                   LpiForm,
                   LpiFormImage,
-                  EmpunyaVesel, 
-                  Nakhoda, 
-                  PenandaanVesel, 
-                  PukatTunda, 
-                  ButiranVesel, 
-                  ButiranEnjin, 
+                  EmpunyaVesel,
+                  Nakhoda,
+                  PenandaanVesel,
+                  PukatTunda,
+                  ButiranVesel,
+                  ButiranEnjin,
                   AlatKeselamatan,
-                  PeralatanMenangkap, 
-                  PeralatanTambahanUtama, 
-                  PeralatanTambahanTambahan, 
+                  PeralatanMenangkap,
+                  PeralatanTambahanUtama,
+                  PeralatanTambahanTambahan,
                   KeadaanVesel,
                   Search,
                   DeviceRegistration,

@@ -53,6 +53,8 @@ export class UsersService {
         'profile.religion',
         'profile.maritalStatus',
         'roles',
+        'pentadbirHartas',
+        'pentadbirHartas.vessel'
       ],
     })
   }

@@ -39,7 +39,7 @@ export class ProfilePentadbirHartas {
   email: string;
 
   @Column({ nullable: true })
-  vessel_owner_id: number;
+  vessel_owner_id: string;
 
   @OneToOne(() => ProfileUser, pu => pu.pentadbirHartas)
   @JoinColumn({ name: 'vessel_owner_id' })
