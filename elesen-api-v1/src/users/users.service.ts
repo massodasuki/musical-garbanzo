@@ -7,6 +7,7 @@ import { UpdateUserDto } from './dto/update-user.dto'
 import * as bcrypt from 'bcryptjs'
 import { UUID } from 'crypto'
 import { PaginationQueryDto } from 'src/shared/dto/pagination-query.dto'
+import { Entities } from './entities/entities.entity'
 
 @Injectable()
 export class UsersService {
@@ -230,7 +231,7 @@ export class UsersService {
     pageSize = 10,
     lesen?: string,
   ): Promise<{
-    data: { id: string; name: string; username: string; start_date: Date; end_date: Date; district: string }[]
+    data: { id: string; name: string; username: string; start_date: Date; end_date: Date; district: string, entity : Entities }[]
     total: number
     page: number
     pageSize: number
@@ -248,8 +249,8 @@ export class UsersService {
     let query = this.userRepo
       .createQueryBuilder('user')
       .leftJoin('user.roles', 'role')
-      .select(['user.id', 'user.name', 'user.username', 'user.start_date', 'user.end_date', 'user.district'])
-      .where('user.entity_id = null')
+      .select(['user.id', 'user.name', 'user.username', 'user.start_date', 'user.end_date', 'user.district', 'user.entity_id'])
+      .where('user.entity_id IS NULL')
 
     if (roleName) {
       query = query.andWhere('role.name = :roleName', { roleName })
