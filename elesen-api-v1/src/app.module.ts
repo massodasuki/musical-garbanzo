@@ -91,7 +91,7 @@ import { Pengkalan } from './pengkalan/entities/pengkalan.entity';
       database: process.env.DB_DATABASE,       // ⚠️ your database name
       synchronize: false,         // Use migrations instead
       logging: true,
-      migrationsRun: true,
+      migrationsRun: false,
       migrations: ['dist/migrations/*.js'],
       entities: [ User,
                   ProfileUser,

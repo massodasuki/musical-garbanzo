@@ -15,6 +15,7 @@ import { ProfileUser } from './profile-user.entity';
 import { Role } from './role.entity';
 import { Entities } from './entities.entity';
 import { ProfilePentadbirHartas } from 'src/vessels/entities/profile-pentadbir-hartas.entity';
+import { Financial } from 'src/financial/entities/financial.entity';
 @Entity('users')
 export class  User {
   @PrimaryGeneratedColumn('uuid')
@@ -113,6 +114,10 @@ export class  User {
 
   @Column({ length: 50, nullable: true })
   watikah_status: string;
+
+  // extra
+  @OneToOne(() => Financial, financial => financial.user)
+  financial: Financial;
 
   @OneToOne(() => ProfileUser, profile => profile.user)
   profile: ProfileUser;
