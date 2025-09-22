@@ -29,8 +29,8 @@ export class UsersController {
       'Returns all users who belong to a specific role level (e.g. admin = 1, supervisor = 2).',
   })
   @Get('nelayan')
-  async findAllNelayan (@Query('page') page = 1, @Query('limit') limit = 10) {
-    return this.usersService.getUsersWhereEntityIdNull(page, limit)
+  async findAllNelayan (@Query() paginationQuery: PaginationQueryDto) {
+    return this.usersService.getUsersWhereEntityIdNull(paginationQuery)
   }
 
   @ApiOperation({
@@ -39,11 +39,10 @@ export class UsersController {
   })
   @Get('nelayan-minimal')
   async findAllNelayanMinimal (
-    @Query('page') page = 1,
-    @Query('limit') limit = 10,
+    @Query() paginationQuery: PaginationQueryDto,
     @Query('lesen') lesen?: string,
   ) {
-    return this.usersService.getMinimalUsersWhereEntityIdNull(page, limit, lesen)
+    return this.usersService.findAllMinimalUsersWhereEntityIdNull(paginationQuery, lesen)
   }
 
   // PROFIL BY NELAYAN API
@@ -67,10 +66,9 @@ export class UsersController {
   @Get('level/:level')
   async findAllByLevel (
     @Param('level') level: number,
-    @Query('page') page = 1,
-    @Query('limit') limit = 10,
+    @Query() paginationQuery: PaginationQueryDto,
   ) {
-    return this.usersService.getUsersByRoleLevel(level, page, limit)
+    return this.usersService.getUsersByRoleLevel(level, paginationQuery)
   }
 
   @ApiOperation({
@@ -92,14 +90,12 @@ export class UsersController {
   getUserByRoleAndIC (
     @Query('level') level: number,
     @Query('username') username: string,
-    @Query('page') page = 1,
-    @Query('limit') limit = 10,
+    @Query() paginationQuery: PaginationQueryDto,
   ) {
     return this.usersService.getUsersByRoleLevelAndUsername(
       level,
       username,
-      page,
-      limit,
+      paginationQuery,
     )
   }
   // END PROFIL BY NELAYAN API

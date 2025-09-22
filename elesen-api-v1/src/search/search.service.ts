@@ -3,6 +3,7 @@ import { Repository, ILike, FindOptionsWhere, DataSource } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { VesselInspection } from '../shared/entities/vessel-inspection.entity';
 import { PaginatedResult } from './dto/pagination-result.dto';
+import { PaginationQueryDto } from 'src/shared/dto/pagination-query.dto';
 
 
 interface PaginationOptions {
@@ -18,12 +19,12 @@ export class SearchService {
         private dataSource: DataSource
       ) {}
 
-  searchVesselNo(query: string, page: number, limit: number) {
+  searchVesselNo(query: string, paginationQuery: PaginationQueryDto) {
     return this.searchWithPagination(
       this.vesselRepository,
       ['vesselNo'],
       query,
-      { page, limit }
+      paginationQuery
     );
   }
 
@@ -61,7 +62,7 @@ export class SearchService {
 
   // ==========================
 
-    async searchByIC(query: string, page: number, limit: number) {
+    async searchByIC(query: string, paginationQuery: PaginationQueryDto) {
       return this.searchWithPaginationQueryBuilder(
         'vesselInspection',
         VesselInspection,
@@ -72,7 +73,7 @@ export class SearchService {
           'captain.ic',
         ],
         query ?? '',
-        { page: page, limit: limit },
+        paginationQuery,
     );
   }
 

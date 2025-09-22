@@ -6,7 +6,7 @@ import { ApiTags } from '@nestjs/swagger';
 import { PaginationQueryDto } from '../shared/dto/pagination-query.dto';
 
 @ApiTags('Vessels')
-@Controller('api/v1/applications/vessels')
+@Controller('api/v1/applications')
 export class VesselsController {
   constructor(private readonly vesselsService: VesselsService) {}
 
@@ -16,7 +16,13 @@ export class VesselsController {
   }
 
 
-  @Get()
+  @Get('vessels-minimal')
+  findAllVesselMinimal(@Query() paginationQuery: PaginationQueryDto, 
+    @Query('lesen') lesen?: string) {
+    return this.vesselsService.findAllMinimalVessels(paginationQuery);
+  }
+
+  @Get('vessels')
   findAll(@Query() paginationQuery: PaginationQueryDto) {
     return this.vesselsService.findAll(paginationQuery);
   }
@@ -26,22 +32,22 @@ export class VesselsController {
     return this.vesselsService.findAll(paginationQuery);
   }
 
-  @Get('details/:id')
+  @Get('vessels/details/:id')
   findOneDetails(@Param('id') id: string) {
     return this.vesselsService.getVesselDetails(id);
   }
 
-  @Get(':id')
+  @Get('vessels/:id')
   findOne(@Param('id') id: string) {
     return this.vesselsService.findOne(id);
   }
 
-  @Patch(':id')
+  @Patch('vessels/:id')
   update(@Param('id') id: string, @Body() dto: UpdateVesselDto) {
     return this.vesselsService.update(id, dto);
   }
 
-  @Delete(':id')
+  @Delete('vessels/:id')
   remove(@Param('id') id: string, @Body('deleted_by') deletedBy: number) {
     return this.vesselsService.remove(+id, deletedBy);
   }

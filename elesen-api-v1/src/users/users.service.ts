@@ -114,9 +114,7 @@ export class UsersService {
   // }
 
   async getUsersWhereEntityIdNull (
-    // level: number,
-    page = 1,
-    pageSize = 10,
+    paginationQuery: PaginationQueryDto,
   ): Promise<{
     data: User[]
     total: number
@@ -124,6 +122,8 @@ export class UsersService {
     pageSize: number
     totalPages: number
   }> {
+    const { page = 1, limit = 10 } = paginationQuery
+    const pageSize = limit
     const skip = (page - 1) * pageSize
 
     const [data, total] = await this.userRepo
@@ -147,8 +147,7 @@ export class UsersService {
 
   async getUsersByRoleLevel (
     level: number,
-    page = 1,
-    pageSize = 10,
+    paginationQuery: PaginationQueryDto,
   ): Promise<{
     data: User[]
     total: number
@@ -156,6 +155,8 @@ export class UsersService {
     pageSize: number
     totalPages: number
   }> {
+    const { page = 1, limit = 10 } = paginationQuery
+    const pageSize = limit
     const skip = (page - 1) * pageSize
 
     const [data, total] = await this.userRepo
@@ -214,8 +215,7 @@ export class UsersService {
   async getUsersByRoleLevelAndUsername (
     level: number,
     username: string,
-    page = 1,
-    pageSize = 10,
+    paginationQuery: PaginationQueryDto,
   ): Promise<{
     data: User[]
     total: number
@@ -223,6 +223,8 @@ export class UsersService {
     pageSize: number
     totalPages: number
   }> {
+    const { page = 1, limit = 10 } = paginationQuery
+    const pageSize = limit
     const skip = (page - 1) * pageSize
 
     const [data, total] = await this.userRepo
@@ -245,9 +247,8 @@ export class UsersService {
     }
   }
 
-  async getMinimalUsersWhereEntityIdNull (
-    page = 1,
-    pageSize = 10,
+  async findAllMinimalUsersWhereEntityIdNull (
+    paginationQuery: PaginationQueryDto,
     lesen?: string,
   ): Promise<{
     data: { id: string; name: string; username: string; start_date: Date; end_date: Date; district: string, entity : Entities }[]
@@ -256,6 +257,8 @@ export class UsersService {
     pageSize: number
     totalPages: number
   }> {
+    const { page = 1, limit = 10 } = paginationQuery
+    const pageSize = limit
     const skip = (page - 1) * pageSize
 
     let roleName: string | undefined

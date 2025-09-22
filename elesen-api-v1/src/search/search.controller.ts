@@ -1,6 +1,7 @@
 import { Controller, Get, Query} from '@nestjs/common';
 import { SearchService } from './search.service';
 import { ApiQuery, ApiTags, ApiOkResponse  } from '@nestjs/swagger';
+import { PaginationQueryDto } from 'src/shared/dto/pagination-query.dto';
 
 @ApiTags('Search')
 @Controller('/api/v1/applications/search')
@@ -10,18 +11,16 @@ export class SearchController {
   @Get('ic')
   searchByIC(
       @Query('q') q: string,
-      @Query('page') page = 1,
-      @Query('limit') limit = 10,
+      @Query() paginationQuery: PaginationQueryDto,
     ) {
-    return this.searchService.searchByIC(q, +page, +limit);
+    return this.searchService.searchByIC(q, paginationQuery);
   }
 
   @Get('vessel')
     searchByVesselNo(
       @Query('q') q: string,
-      @Query('page') page = 1,
-      @Query('limit') limit = 10,
+      @Query() paginationQuery: PaginationQueryDto,
     ) {
-    return this.searchService.searchVesselNo(q, +page, +limit);
+    return this.searchService.searchVesselNo(q, paginationQuery);
   }
 }
