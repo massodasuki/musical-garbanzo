@@ -13,38 +13,38 @@ export class Vessels {
   @JoinColumn({ name: 'entity_id' })
   entity: Entities;
 
-  @Column()
-  vessel_no: string;
+  @Column({ name: 'vessel_no', unique: true })
+  vesselNo: string;
 
   @Column()
   zone: string;
 
-  @Column({ type: 'date', nullable: true })
-  start_date: Date;
+  @Column({ type: 'date', nullable: true, name: 'start_date' })
+  startDate: Date;
 
-  @Column({ type: 'date', nullable: true })
-  end_date: Date;
+  @Column({ type: 'date', nullable: true, name: 'end_date' })
+  endDate: Date;
 
-  @Column({ default: true })
-  is_active: boolean;
+  @Column({ default: true, name: 'is_active' })
+  isActive: boolean;
 
-  @Column({ nullable: true })
-  created_by: string;
+  @Column({ nullable: true, name: 'created_by' })
+  createdBy: string;
 
-  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
-  created_at: Date;
+  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP', name: 'created_at' })
+  createdAt: Date;
 
-  @Column({ nullable: true })
-  updated_by: number;
+  @Column({ nullable: true, name: 'updated_by' })
+  updatedBy: number;
 
-  @Column({ type: 'timestamp', nullable: true })
-  updated_at: Date;
+  @Column({ type: 'timestamp', nullable: true, name: 'updated_at' })
+  updatedAt: Date;
 
-  @Column({ nullable: true })
-  deleted_by: number;
+  @Column({ nullable: true, name: 'deleted_by' })
+  deletedBy: number;
 
-  @Column({ type: 'timestamp', nullable: true })
-  deleted_at: Date;
+  @Column({ type: 'timestamp', nullable: true, name: 'deleted_at' })
+  deletedAt: Date;
 
   @OneToOne(() => ProfilePentadbirHartas, pentadbirHartas => pentadbirHartas.vessel, { cascade: true })
   pentadbirHartas: ProfilePentadbirHartas;

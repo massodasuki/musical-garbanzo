@@ -66,7 +66,7 @@ export class VesselInspection {
   keadaanVesel: KeadaanVesel;
 
   @OneToOne(() => Vessels, vessel => vessel.pemeriksaanVesel, { cascade: true })
-  @JoinColumn({ name: 'vessel_no', referencedColumnName: 'vessel_no' })
+  @JoinColumn({ name: 'vessel_id' })
   vessel: Vessels;
 
   @DeleteDateColumn({ name: 'deleted_at' })

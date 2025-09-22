@@ -108,7 +108,7 @@ export class VesselsService {
     // });
 
     const data = await this.vesselRepository.findOne({
-      where: { vessel_no: vesselNo },
+      where: { vesselNo: vesselNo },
       relations: ['pentadbirHartas'],
     })
 
@@ -129,7 +129,7 @@ export class VesselsService {
   async update(id: string, dto: UpdateVesselDto) {
     await this.vesselRepository.update(id, {
       ...dto,
-      updated_at: new Date(),
+      updatedAt: new Date(),
     });
     return this.vesselRepository.findOneBy({ id });
   }
@@ -138,9 +138,9 @@ export class VesselsService {
 
   async remove(id: number, deletedBy: number) {
     await this.vesselRepository.update(id, {
-      is_active: false,
-      deleted_by: deletedBy,
-      deleted_at: new Date(),
+      isActive: false,
+      deletedBy: deletedBy,
+      deletedAt: new Date(),
     });
     return { deleted: true };
   }

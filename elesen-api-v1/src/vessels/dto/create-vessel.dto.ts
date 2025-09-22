@@ -5,27 +5,27 @@ export class CreateVesselDto {
   id: string;
 
   @IsString()
-  entity_id: string;
+  entityId: string;
 
   @IsString()
-  vessel_no: string;
+  vesselNo: string;
 
   @IsString()
   zone: string;
 
   @IsOptional()
   @IsDateString()
-  start_date?: string;
+  startDate?: string;
 
   @IsOptional()
   @IsDateString()
-  end_date?: string;
+  endDate?: string;
 
   @IsOptional()
   @IsBoolean()
-  is_active?: boolean;
+  isActive?: boolean;
 
   @IsOptional()
   @IsString()
-  created_by?: string;
+  createdBy?: string;
 }
