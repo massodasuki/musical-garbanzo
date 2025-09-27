@@ -7,4 +7,4 @@ export * from './butiran-enjin.dto';
 export * from './alat-keselamatan.dto';
 export * from './peralatan-menangkap.dto';
 export * from './peralatan-tambahan.dto';
-export * from './keadaan-vesel.dto';
+export * from './info-vessel.dto';

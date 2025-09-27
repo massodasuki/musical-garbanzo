@@ -19,6 +19,10 @@ import { ProfilePentadbirHartas } from 'src/vessels/entities/profile-pentadbir-h
 import { Financial } from 'src/financial/entities/financial.entity';
 import { FishingActivity } from 'src/fishing-activity/entities/fishing-activity.entity';
 import { Pengkalan } from 'src/pengkalan/entities/pengkalan.entity';
+import { Kesalahan } from 'src/vessels/entities/kesalahan.entity';
+import { Vessels } from '../../vessels/entities/vessel.entity';
+import { Jetty } from '../../jetties/jetty.entity';
+import { DaratBaseJetty } from 'src/jetties/darat-base-jetties.entity';
 @Entity('users')
 export class  User {
   @PrimaryGeneratedColumn('uuid')
@@ -119,20 +123,24 @@ export class  User {
   watikah_status: string;
 
   // extra
-  @OneToOne(() => Financial, financial => financial.user)
-  financial: Financial;
 
-  @OneToMany(() => FishingActivity, fishingActivity => fishingActivity.user)
-  fishingActivity: FishingActivity;
+  @OneToOne(() => Vessels, vessel => vessel.user)
+  vessel: Vessels;
 
-  @OneToMany(() => Pengkalan, pengkalan => pengkalan.user)
-  pengkalan: Pengkalan;
+  // @OneToOne(() => Financial, financial => financial.user)
+  // financial: Financial;
+
+  // @OneToMany(() => FishingActivity, fishingActivity => fishingActivity.user)
+  // fishingActivity: FishingActivity;
+
+  // @OneToMany(() => Pengkalan, pengkalan => pengkalan.user)
+  // pengkalan: Pengkalan;
 
   @OneToOne(() => ProfileUser, profile => profile.user)
   profile: ProfileUser;
 
-  @OneToOne(() => ProfilePentadbirHartas, pentadbirHartas => pentadbirHartas.user)
-  pentadbirHartas: ProfilePentadbirHartas;
+  // @OneToOne(() => ProfilePentadbirHartas, pentadbirHartas => pentadbirHartas.user)
+  // pentadbirHartas: ProfilePentadbirHartas;
 
   @ManyToMany(() => Role, role => role.users)
   @JoinTable({
@@ -141,4 +149,16 @@ export class  User {
     inverseJoinColumn: { name: 'role_id', referencedColumnName: 'id' },
   })
   roles: Role[];
+
+  @ManyToMany(() => Kesalahan, kesalahan => kesalahan.users)
+  @JoinTable({
+    name: 'vessels',
+    joinColumn: { name: 'user_id', referencedColumnName: 'id' },
+    inverseJoinColumn: { name: 'no_pendaftaran', referencedColumnName: 'no_pendaftaran' },
+  })
+  kesalahan: Kesalahan[];
+
+  @OneToMany(() => DaratBaseJetty, daratBaseJetties => daratBaseJetties.userId)
+  daratBaseJetties: DaratBaseJetty;
 }
+

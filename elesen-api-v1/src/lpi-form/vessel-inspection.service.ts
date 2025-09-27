@@ -14,7 +14,7 @@ import { LpiForm } from './entities/lpi-form.entity'
 import { AlatKeselamatan } from 'src/shared/entities/embedded/alat-keselamatan.entity'
 import { ButiranEnjin } from 'src/shared/entities/embedded/butiran-enjin.entity'
 import { EmpunyaVesel } from 'src/shared/entities/embedded/empunya-vesel.entity'
-import { KeadaanVesel } from 'src/shared/entities/embedded/keadaan-vesel.entity'
+import { InfoVessel } from 'src/shared/entities/embedded/info-vessel.entity'
 import { Nakhoda } from 'src/shared/entities/embedded/nakhoda.entity'
 import { PenandaanVesel } from 'src/shared/entities/embedded/penandaan-vesel.entity'
 import { PeralatanMenangkap } from 'src/shared/entities/embedded/peralatan-menangkap.entity'
@@ -38,8 +38,8 @@ export class VesselInspectionService {
     @InjectRepository(EmpunyaVesel)
     private readonly empunyaVeselRepo: Repository<EmpunyaVesel>,
 
-    @InjectRepository(KeadaanVesel)
-    private readonly keadaanVeselRepo: Repository<KeadaanVesel>,
+    @InjectRepository(InfoVessel)
+    private readonly infoVesselRepo: Repository<InfoVessel>,
 
     @InjectRepository(Nakhoda)
     private readonly nakhodaRepo: Repository<Nakhoda>,
@@ -105,7 +105,7 @@ export class VesselInspectionService {
         peralatanMenangkap: true,
         peralatanTambahanUtama: true,
         peralatanTambahanTambahan: true,
-        keadaanVesel: true,
+        infoVessel: true,
       },
     })
     if (!inspection) throw new NotFoundException('Vessel inspection not found')

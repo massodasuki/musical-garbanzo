@@ -53,7 +53,7 @@ export class LpiFormService {
   //       peralatanMenangkap: true,
   //       peralatanTambahanUtama: true,
   //       peralatanTambahanTambahan: true,
-  //       keadaanVesel: true,
+  //       infoVessel: true,
   //     },
   //   });
 
@@ -80,7 +80,7 @@ export class LpiFormService {
   //         peralatanMenangkap: true,
   //         peralatanTambahanUtama: true,
   //         peralatanTambahanTambahan: true,
-  //         keadaanVesel: true,
+  //         infoVessel: true,
   //       },
   //     });
   //   }

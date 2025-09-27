@@ -24,7 +24,7 @@ export enum Dihadiri {
   REPRESENTATIVE = 'Wakil'
 }
 
-@Entity('appointment')
+@Entity('appointments')
 export class Appointment {
   @PrimaryGeneratedColumn('uuid')
   id: string;

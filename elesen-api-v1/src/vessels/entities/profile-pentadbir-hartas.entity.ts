@@ -19,9 +19,9 @@ export class ProfilePentadbirHartas {
 
 //   @Column({ nullable: true })
 //   user_id: number;
-  @OneToOne(() => User, user => user.pentadbirHartas)
-  @JoinColumn({ name: 'user_id' })
-  user: User;
+  // @OneToOne(() => User, user => user.pentadbirHartas)
+  // @JoinColumn({ name: 'user_id' })
+  // user: User;
 
   @Column({ nullable: true })
   name: string;

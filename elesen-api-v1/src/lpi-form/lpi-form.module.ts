@@ -10,7 +10,7 @@ import { LpiImageService } from './lpi-image.service';
 import { AlatKeselamatan } from 'src/shared/entities/embedded/alat-keselamatan.entity';
 import { ButiranEnjin } from 'src/shared/entities/embedded/butiran-enjin.entity';
 import { EmpunyaVesel } from 'src/shared/entities/embedded/empunya-vesel.entity';
-import { KeadaanVesel } from 'src/shared/entities/embedded/keadaan-vesel.entity';
+import { InfoVessel } from 'src/shared/entities/embedded/info-vessel.entity';
 import { Nakhoda } from 'src/shared/entities/embedded/nakhoda.entity';
 import { PenandaanVesel } from 'src/shared/entities/embedded/penandaan-vesel.entity';
 import { PeralatanMenangkap } from 'src/shared/entities/embedded/peralatan-menangkap.entity';
@@ -25,7 +25,7 @@ import { PukatTunda } from 'src/shared/entities/embedded/pukat-tunda.entity';
     AlatKeselamatan, 
     ButiranEnjin,
     EmpunyaVesel,
-    KeadaanVesel,
+    InfoVessel,
     Nakhoda,
     PenandaanVesel,
     PeralatanMenangkap,

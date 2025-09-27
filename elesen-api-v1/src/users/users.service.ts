@@ -44,17 +44,21 @@ export class UsersService {
     return this.userRepo.findOne({
       where: { id },
       relations: [
-        'financial',
-        'fishingActivity',
-        'pengkalan',
+        // 'financial',
+        // 'fishingActivity',
+        // 'pengkalan',
         'profile',
         'profile.gender',
         'profile.race',
         'profile.religion',
         'profile.maritalStatus',
         'roles',
-        'pentadbirHartas',
-        'pentadbirHartas.vessel'
+        'kesalahan',
+        'vessel',
+        // 'daratBaseJetties',
+        // 'jetty',
+        // 'pentadbirHartas',
+        // 'pentadbirHartas.vessel'
       ],
     })
   }
@@ -263,9 +267,9 @@ export class UsersService {
 
     let roleName: string | undefined
     if (lesen === 'MARIN') {
-      roleName = 'PELESEN (LAUT)'
+      roleName = 'NELAYAN LAUT'
     } else if (lesen === 'DARAT') {
-      roleName = 'PELESEN (DARAT)'
+      roleName = 'NELAYAN DARAT'
     }
 
     let query = this.userRepo
@@ -275,7 +279,7 @@ export class UsersService {
       .where('user.entity_id IS NULL')
 
     if (roleName) {
-      query = query.andWhere('role.name = :roleName', { roleName })
+      query = query.andWhere('LOWER(role.name) LIKE LOWER(:roleName)', { roleName: `%${roleName}%` })
     }
 
     const [data, total] = await query

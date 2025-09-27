@@ -57,8 +57,8 @@ INSERT INTO butiran_vessels (id, panjang, lebar, dalam, muatan_grt, pemeriksaan_
 INSERT INTO empunya_vessels (id, nama, ic, pemeriksaan_vessels_id) VALUES
 ('3c2d530f-b3b5-4b83-bdd5-732b2a914874', 'Owner Name', '123456789012', 2);
 
--- KeadaanVesel
-INSERT INTO keadaan_vessels (id, struktur, jenis, jenis_kulit, tarikh_pemeriksaan, pemeriksaan_vessels_id) VALUES
+-- InfoVessel
+INSERT INTO info_vessels (id, struktur, jenis, jenis_kulit, tarikh_pemeriksaan, pemeriksaan_vessels_id) VALUES
 ('3c2d530f-b3b5-4b83-bdd5-732b2a914875', 'Wood', 'Fishing', 'Painted', '2023-05-01', 2);
 
 -- Nakhoda

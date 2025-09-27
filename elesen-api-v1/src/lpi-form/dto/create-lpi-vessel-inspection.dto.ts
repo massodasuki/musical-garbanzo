@@ -4,7 +4,7 @@ import {
 import {
   EmpunyaVeselDto, NakhodaDto, PenandaanVeselDto, PukatTundaDto,
   ButiranVeselDto, ButiranEnjinDto, AlatKeselamatanDto,
-  PeralatanMenangkapDto, PeralatanTambahanDto, KeadaanVeselDto
+  PeralatanMenangkapDto, PeralatanTambahanDto, InfoVesselDto
 } from './embedded';
 import { JenisBorang } from '../../common/enums/jenis-borang.enum';
 import { Type } from 'class-transformer';
@@ -64,6 +64,6 @@ export class CreateLpiVesselInspectionDto {
   peralatanTambahan: PeralatanTambahanDto;
 
   @ValidateNested()
-  @Type(() => KeadaanVeselDto)
-  keadaanVesel: KeadaanVeselDto;
+  @Type(() => InfoVesselDto)
+  infoVessel: InfoVesselDto;
 }

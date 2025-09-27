@@ -1,8 +1,8 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToOne, JoinColumn } from 'typeorm';
 import { VesselInspection } from '../vessel-inspection.entity';
 
-@Entity('keadaan_vessels')
-export class KeadaanVesel {
+@Entity('info_vessels')
+export class InfoVessel {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 

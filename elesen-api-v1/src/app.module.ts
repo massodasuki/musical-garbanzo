@@ -18,7 +18,7 @@ import { AlatKeselamatan } from './shared/entities/embedded/alat-keselamatan.ent
 import { PeralatanMenangkap } from './shared/entities/embedded/peralatan-menangkap.entity';
 import { PeralatanTambahanUtama } from './shared/entities/embedded/peralatan-tambahan-utama.entity';
 import { PeralatanTambahanTambahan } from './shared/entities/embedded/peralatan-tambahan-tambahan.entity';
-import { KeadaanVesel } from './shared/entities/embedded/keadaan-vesel.entity';
+import { InfoVessel } from './shared/entities/embedded/info-vessel.entity';
 
 // module import
 import { LpiFormModule } from './lpi-form/lpi-form.module';
@@ -55,6 +55,9 @@ import { FishingActivityModule } from './fishing-activity/fishing-activity.modul
 import { FishingActivity } from './fishing-activity/entities/fishing-activity.entity';
 import { PengkalanModule } from './pengkalan/pengkalan.module';
 import { Pengkalan } from './pengkalan/entities/pengkalan.entity';
+import { Kesalahan } from './vessels/entities/kesalahan.entity';
+import { DaratBaseJetty } from './jetties/darat-base-jetties.entity';
+import { Jetty } from './jetties/jetty.entity';
 
 
 @Module({
@@ -113,13 +116,16 @@ import { Pengkalan } from './pengkalan/entities/pengkalan.entity';
                   PeralatanMenangkap,
                   PeralatanTambahanUtama,
                   PeralatanTambahanTambahan,
-                  KeadaanVesel,
+                  InfoVessel,
                   Search,
                   DeviceRegistration,
                   Appointment,
                   Financial,
                   FishingActivity,
-                  Pengkalan
+                  Pengkalan,
+                  Kesalahan,
+                  DaratBaseJetty,
+                  Jetty
                 ]}),
   
  

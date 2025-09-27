@@ -9,7 +9,7 @@ import { AlatKeselamatan } from './embedded/alat-keselamatan.entity';
 import { PeralatanMenangkap } from './embedded/peralatan-menangkap.entity';
 import { PeralatanTambahanUtama } from './embedded/peralatan-tambahan-utama.entity';
 import { PeralatanTambahanTambahan } from './embedded/peralatan-tambahan-tambahan.entity';
-import { KeadaanVesel } from './embedded/keadaan-vesel.entity';
+import { InfoVessel } from './embedded/info-vessel.entity';
 import { JenisBorang } from '../../common/enums/jenis-borang.enum';
 import { Vessels } from 'src/vessels/entities/vessel.entity';
 import { LpiForm } from 'src/lpi-form/entities/lpi-form.entity';
@@ -62,8 +62,8 @@ export class VesselInspection {
   @OneToMany(() => PeralatanTambahanTambahan, ptt => ptt.vesselInspection, { cascade: true })
   peralatanTambahanTambahan: PeralatanTambahanTambahan[];
 
-  @OneToOne(() => KeadaanVesel, kv => kv.vesselInspection, { cascade: true })
-  keadaanVesel: KeadaanVesel;
+  @OneToOne(() => InfoVessel, kv => kv.vesselInspection, { cascade: true })
+  infoVessel: InfoVessel;
 
   @OneToOne(() => Vessels, vessel => vessel.pemeriksaanVesel, { cascade: true })
   @JoinColumn({ name: 'vessel_id' })

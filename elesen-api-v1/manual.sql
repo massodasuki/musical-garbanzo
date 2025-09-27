@@ -147,8 +147,8 @@ CREATE TABLE empunya_vessels (
     FOREIGN KEY (pemeriksaan_vessels_id) REFERENCES pemeriksaan_vessels(id)
 );
 
--- KeadaanVesel
-CREATE TABLE keadaan_vessels (
+-- InfoVessel
+CREATE TABLE info_vessels (
     id VARCHAR(36) PRIMARY KEY,
     struktur VARCHAR(255) NOT NULL,
     jenis VARCHAR(255) NOT NULL,
@@ -313,8 +313,8 @@ INSERT INTO butiran_vessels (id, panjang, lebar, dalam, muatan_grt, pemeriksaan_
 INSERT INTO empunya_vessels (id, nama, ic, pemeriksaan_vessels_id) VALUES
 ('550e8400-e29b-41d4-a716-446655440018', 'Owner Name', '123456789012', 1);
 
--- KeadaanVesel
-INSERT INTO keadaan_vessels (id, struktur, jenis, jenis_kulit, tarikh_pemeriksaan, pemeriksaan_vessels_id) VALUES
+-- InfoVessel
+INSERT INTO info_vessels (id, struktur, jenis, jenis_kulit, tarikh_pemeriksaan, pemeriksaan_vessels_id) VALUES
 ('550e8400-e29b-41d4-a716-446655440019', 'Wood', 'Fishing', 'Painted', '2023-05-01', 1);
 
 -- Nakhoda

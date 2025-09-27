@@ -4,17 +4,15 @@
     {
       "type": "pwa-node",
       "request": "launch",
-      "name": "Debug NestJS App (ts-node)",
+      "name": "Debug NestJS (npm start:dev)",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "start:dev"],
       "skipFiles": ["<node_internals>/**"],
-      "program": "${workspaceFolder}/src/main.ts", // ✅ main entry point
-      "runtimeExecutable": "ts-node",               // ✅ use ts-node properly
-      "args": [],
-      "cwd": "${workspaceFolder}",
-      "env": {
-        "TS_NODE_PROJECT": "tsconfig.json"
-      },
       "console": "integratedTerminal",
-      "internalConsoleOptions": "neverOpen"
+      "internalConsoleOptions": "neverOpen",
+      "env": {
+        "DEBUG": "true"
+      }
     }
   ]
 }

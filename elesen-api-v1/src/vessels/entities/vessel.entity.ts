@@ -3,11 +3,15 @@ import { Entity, PrimaryGeneratedColumn, Column, JoinColumn, ManyToOne, OneToOne
 import { ProfilePentadbirHartas } from './profile-pentadbir-hartas.entity';
 import { Appointment } from 'src/appointment/entities/appointment.entity';
 import { VesselInspection } from '../../shared/entities/vessel-inspection.entity';
-
+import { User } from "../../users/entities/user.entity";
 @Entity('vessels')
 export class Vessels {
   @PrimaryGeneratedColumn('uuid')
   id: string;
+
+  @OneToOne(() => User, user => user.id)
+  @JoinColumn({ name: 'user_id' })
+  user: User;
 
   @ManyToOne(() => Entities, { nullable: true })
   @JoinColumn({ name: 'entity_id' })

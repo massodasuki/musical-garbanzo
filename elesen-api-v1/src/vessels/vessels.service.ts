@@ -43,14 +43,14 @@ export class VesselsService {
     .leftJoin('vessel.appointment', 'appointment')
     .leftJoin('vessel.pentadbirHartas', 'pentadbirHartas')
     .innerJoin('vessel.pemeriksaanVesel', 'pemeriksaanVesel')
-    .innerJoin('pemeriksaanVesel.keadaanVesel', 'keadaanVesel')
+    .innerJoin('pemeriksaanVesel.infoVessel', 'infoVessel')
     .select([
       'vessel.id  AS id',
       'vessel.vessel_no  AS vessel_no',
       'vessel.zone  AS zone',
       'vessel.start_date AS start_date',
       'vessel.end_date AS end_date',
-      'keadaanVesel.jenisKulit AS jenis_kulit'
+      'infoVessel.jenisKulit AS jenis_kulit'
     ])
     // .where('vessel.entity_id IS NULL');
 
