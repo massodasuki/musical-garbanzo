@@ -55,6 +55,8 @@ export class UsersService {
         'roles',
         'kesalahan',
         'vessel',
+        'daratBaseJetties',
+        'jetty'
         // 'daratBaseJetties',
         // 'jetty',
         // 'pentadbirHartas',

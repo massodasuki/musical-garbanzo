@@ -158,7 +158,15 @@ export class  User {
   })
   kesalahan: Kesalahan[];
 
-  @OneToMany(() => DaratBaseJetty, daratBaseJetties => daratBaseJetties.userId)
+  @OneToMany(() => DaratBaseJetty, daratBaseJetties => daratBaseJetties.user)
   daratBaseJetties: DaratBaseJetty;
+
+  @ManyToMany(() => Jetty, jetty => jetty.users)
+  @JoinTable({
+    name: 'darat_base_jetties',
+    joinColumn: { name: 'user_id', referencedColumnName: 'id' },
+    inverseJoinColumn: { name: 'jetty_id', referencedColumnName: 'id' },
+  })
+  jetty: Jetty[];
 }
 

@@ -6,14 +6,16 @@ import {
   UpdateDateColumn,
   DeleteDateColumn,
   ManyToOne,
-  JoinColumn
+  JoinColumn,
+  OneToOne,
+  PrimaryGeneratedColumn
 } from 'typeorm';
 import { Jetty } from './jetty.entity';
 import { User } from 'src/users/entities/user.entity';
 
 @Entity('darat_base_jetties')
 export class DaratBaseJetty {
-  @PrimaryColumn('char', { length: 36 })
+  @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column('char', { name: 'state_id', length: 36, nullable: true })
@@ -32,32 +34,33 @@ export class DaratBaseJetty {
   @JoinColumn({ name: 'jetty_id' })
   jetty: Jetty;
 
-  @Column('char', { name: 'user_id', length: 36 })
-  userId: string;
+  @OneToOne(() => User, user => user.id)
+  @JoinColumn({ name: 'user_id' })
+  user: User;
 
   @Column('bigint', { name: 'entity_id', nullable: true })
   entityId: number | null;
 
-  @Column('tinyint', { name: 'is_active', default: 1 })
-  isActive: boolean;
+  // @Column('tinyint', { name: 'is_active', default: 1 })
+  // isActive: boolean;
 
-  @Column('char', { name: 'created_by', length: 36, nullable: true })
-  createdBy: string | null;
+  // @Column('char', { name: 'created_by', length: 36, nullable: true })
+  // createdBy: string | null;
 
-  @Column('char', { name: 'updated_by', length: 36, nullable: true })
-  updatedBy: string | null;
+  // @Column('char', { name: 'updated_by', length: 36, nullable: true })
+  // updatedBy: string | null;
 
-  @Column('char', { name: 'deleted_by', length: 36, nullable: true })
-  deletedBy: string | null;
+  // @Column('char', { name: 'deleted_by', length: 36, nullable: true })
+  // deletedBy: string | null;
 
-  @CreateDateColumn({ name: 'created_at', type: 'timestamp', nullable: true })
-  createdAt: Date | null;
+  // @CreateDateColumn({ name: 'created_at', type: 'timestamp', nullable: true })
+  // createdAt: Date | null;
 
-  @UpdateDateColumn({ name: 'updated_at', type: 'timestamp', nullable: true })
-  updatedAt: Date | null;
+  // @UpdateDateColumn({ name: 'updated_at', type: 'timestamp', nullable: true })
+  // updatedAt: Date | null;
 
-  @DeleteDateColumn({ name: 'deleted_at', type: 'timestamp', nullable: true })
-  deletedAt: Date | null;
+  // @DeleteDateColumn({ name: 'deleted_at', type: 'timestamp', nullable: true })
+  // deletedAt: Date | null;
 
   
 }

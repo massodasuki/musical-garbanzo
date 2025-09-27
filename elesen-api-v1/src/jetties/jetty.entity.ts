@@ -23,30 +23,33 @@ export class Jetty {
   @Column({ length: 255, nullable: true })
   name: string;
 
-  @Column({ default: true })
-  is_active: boolean;
+  // @Column({ default: true })
+  // is_active: boolean;
 
-  @Column({ nullable: true })
-  created_by: string;
+  // @Column({ nullable: true })
+  // created_by: string;
 
-  @Column({ nullable: true })
-  updated_by: string;
+  // @Column({ nullable: true })
+  // updated_by: string;
 
-  @Column({ nullable: true })
-  deleted_by: string;
+  // @Column({ nullable: true })
+  // deleted_by: string;
 
-  @CreateDateColumn({ nullable: true })
-  created_at: Date;
+  // @CreateDateColumn({ nullable: true })
+  // created_at: Date;
 
-  @UpdateDateColumn({ nullable: true })
-  updated_at: Date;
+  // @UpdateDateColumn({ nullable: true })
+  // updated_at: Date;
 
-  @DeleteDateColumn({ nullable: true })
-  deleted_at: Date;
+  // @DeleteDateColumn({ nullable: true })
+  // deleted_at: Date;
 
   @Column({ nullable: true })
   parliament_id: string;
 
   @Column({ nullable: true })
   parliament_seat_id: string;
+
+  @ManyToMany(() => User, user => user.jetty)
+  users: User[];
 }
