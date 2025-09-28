@@ -34,7 +34,7 @@ export class UsersService {
         'profile.gender',
         'profile.race',
         'profile.religion',
-        'profile.maritalStatus',
+        'profile.marital_status',
         'roles',
       ],
     })
@@ -51,14 +51,14 @@ export class UsersService {
         'profile.gender',
         'profile.race',
         'profile.religion',
-        'profile.maritalStatus',
+        'profile.marital_status',
         'roles',
         'kesalahan',
         'vessel',
-        'daratBaseJetties',
-        'jetty'
-        // 'daratBaseJetties',
-        // 'jetty',
+        'darat_base_jetties',
+        'jetty',
+        'fishing_log',
+        
         // 'pentadbirHartas',
         // 'pentadbirHartas.vessel'
       ],

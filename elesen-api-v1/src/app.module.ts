@@ -58,6 +58,10 @@ import { Pengkalan } from './pengkalan/entities/pengkalan.entity';
 import { Kesalahan } from './vessels/entities/kesalahan.entity';
 import { DaratBaseJetty } from './jetties/darat-base-jetties.entity';
 import { Jetty } from './jetties/jetty.entity';
+import { FishingLog } from './fishing-activity/entities/fishing-log.entity';
+import { CatchingLocation } from './fishing-activity/entities/catching-location.entity';
+import { FishLanding } from './fishing-activity/entities/fish-landing.entity';
+import { FishSpecies } from './fish-species/entities/fish-species.entity';
 
 
 @Module({
@@ -125,7 +129,11 @@ import { Jetty } from './jetties/jetty.entity';
                   Pengkalan,
                   Kesalahan,
                   DaratBaseJetty,
-                  Jetty
+                  Jetty,
+                  FishingLog,
+                  CatchingLocation,
+                  FishLanding,
+                  FishSpecies
                 ]}),
   
  

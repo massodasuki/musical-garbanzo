@@ -37,7 +37,7 @@ export class ProfileUser {
 
   @ManyToOne(() => CodeMaster)
   @JoinColumn({ name: 'marital_status_id' })
-  maritalStatus: CodeMaster;
+  marital_status: CodeMaster;
 
   @ManyToOne(() => CodeMaster)
   @JoinColumn({ name: 'type_id' })

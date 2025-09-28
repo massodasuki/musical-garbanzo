@@ -23,6 +23,7 @@ import { Kesalahan } from 'src/vessels/entities/kesalahan.entity';
 import { Vessels } from '../../vessels/entities/vessel.entity';
 import { Jetty } from '../../jetties/jetty.entity';
 import { DaratBaseJetty } from 'src/jetties/darat-base-jetties.entity';
+import { FishingLog } from '../../fishing-activity/entities/fishing-log.entity';
 @Entity('users')
 export class  User {
   @PrimaryGeneratedColumn('uuid')
@@ -158,8 +159,8 @@ export class  User {
   })
   kesalahan: Kesalahan[];
 
-  @OneToMany(() => DaratBaseJetty, daratBaseJetties => daratBaseJetties.user)
-  daratBaseJetties: DaratBaseJetty;
+  @OneToMany(() => DaratBaseJetty, dbj => dbj.user)
+  darat_base_jetties: DaratBaseJetty;
 
   @ManyToMany(() => Jetty, jetty => jetty.users)
   @JoinTable({
@@ -168,5 +169,8 @@ export class  User {
     inverseJoinColumn: { name: 'jetty_id', referencedColumnName: 'id' },
   })
   jetty: Jetty[];
+
+  @OneToMany(() => FishingLog, fishing => fishing.user)
+  fishing_log: FishingLog;
 }
 
